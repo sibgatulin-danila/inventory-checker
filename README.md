@@ -1,2 +1,4 @@
 # inventory-checker
-project for managing technical inventory in company. This is my university project.
+Project for managing technical inventory in company. This is my university project.
+
+Для прода не забыть поменять в докерфайле сервера строки 
