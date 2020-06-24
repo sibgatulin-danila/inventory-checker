@@ -18,14 +18,3 @@ services:
         volumes:
             - './server:/usr/src/server'
             - '/usr/src/server/node_modules'
-    # client:
-    #     build: 
-    #         context: ./client
-    #     network_mode: host
-    #     ports:
-    #         - "8080:8080"
-    #     depends_on: 
-    #         - server
-    #     volumes:
-    #         - './client:/usr/src/client'
-    #         - '/usr/src/client/node_modules'

@@ -1606,3 +1606,4 @@ database/WiredTiger.lock
 database/WiredTiger.turtle
 database/WiredTiger.wt
 database/WiredTigerLAS.wt
+node_modules
