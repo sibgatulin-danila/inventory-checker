@@ -1,11 +1,13 @@
 version: "3"
 services: 
-    mongo: 
+    mongo:  
         container_name: mongo
         hostname: mongo
         image: mongo
         ports: 
             - "27017:27017"
+        volumes:
+            - './database:/data/db'
     server:
         build: 
             context: ./server
@@ -17,9 +19,13 @@ services:
             - './server:/usr/src/server'
             - '/usr/src/server/node_modules'
     # client:
-    #     build: client/
+    #     build: 
+    #         context: ./client
     #     network_mode: host
     #     ports:
     #         - "8080:8080"
     #     depends_on: 
     #         - server
+    #     volumes:
+    #         - './client:/usr/src/client'
+    #         - '/usr/src/client/node_modules'
