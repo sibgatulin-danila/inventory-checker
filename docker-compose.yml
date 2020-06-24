@@ -7,11 +7,15 @@ services:
         ports: 
             - "27017:27017"
     server:
-        build: server/
+        build: 
+            context: ./server
         ports: 
             - "3000:3000"
         links:
             - mongo
+        volumes:
+            - './server:/usr/src/server'
+            - '/usr/src/server/node_modules'
     # client:
     #     build: client/
     #     network_mode: host

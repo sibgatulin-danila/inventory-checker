@@ -14,7 +14,7 @@ const posts = require('./routes/api/posts');
 server.use('/api/posts', posts);
 
 server.get('/', function (req, res) {
-    res.send('hello from');
+    res.send('hello from docker');
 });
 
 server.listen(listeningPort, () => console.log(`Listening port is ${listeningPort}`));

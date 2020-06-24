@@ -1,15 +1,15 @@
 FROM node:10
 
-WORKDIR /server
+WORKDIR /usr/src/server
 
-COPY ./package.json .
+COPY ./package.json ./
 RUN npm install
 
-COPY ./ .
+COPY . ./
 EXPOSE 3000
 
 # for dev
-CMD ["yarn", "dev"]
+CMD ["npm", "start"]
 
 # for prod
-# CMD ["npm", "start"]
+# CMD ["npm", "run", "start"]
