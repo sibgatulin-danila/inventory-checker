@@ -1,0 +1,8 @@
+{
+  "name": "inventory-checker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:sibgatulin-danila/inventory-checker.git",
+  "author": "sibgatds <sibgat.d.s@gmail.com>",
+  "license": "MIT"
+}

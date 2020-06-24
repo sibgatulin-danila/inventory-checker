@@ -18,3 +18,4 @@ services:
         volumes:
             - './server:/usr/src/server'
             - '/usr/src/server/node_modules'
+            - './client:/usr/src/client'
