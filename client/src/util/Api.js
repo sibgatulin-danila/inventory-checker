@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 export default new class Api {
-    apiPrefix = 'http://localhost:3000/api';
+    apiPrefix = 'api';
 
     post = (endpoint = '/', data) => {
         return new Promise((resolve, reject) => {
@@ -27,27 +27,6 @@ export default new class Api {
             try {
                 axios({
                     method: 'get', 
-                    url: this.apiPrefix + endpoint, 
-                    params: {
-                        ...data
-                    },
-                    headers: {
-                        'Content-type': 'application/json'
-                    },
-                }).then(response => {
-                    resolve(this._formatResponse(response));
-                })
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-    delete = (endpoint = '/', data) => {
-        return new Promise((resolve, reject) => {
-            try {
-                axios({
-                    method: 'delete', 
                     url: this.apiPrefix + endpoint, 
                     params: {
                         ...data
