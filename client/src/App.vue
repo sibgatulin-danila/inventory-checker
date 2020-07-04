@@ -1,17 +1,16 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <PostComponent msg="Welcome to Your Vue.js App"/>
-  </div>
+  <Main />
 </template>
 
 <script>
-import PostComponent from './components/PostComponent.vue'
+import Main from './components/Main';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
 export default {
   name: 'App',
   components: {
-    PostComponent
+    Main
   }
 }
 </script>
