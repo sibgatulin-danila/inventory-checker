@@ -1,22 +1,20 @@
 <template>
-  <div class="container" v-if="show">
-    <div class="row">
-      <div class="col-12">
-        <ul class="nav">
-          <li class="nav-item">
-              <a href="#" class="nav-link">Главная</a>
-          </li>
-          <li class="nav-item">
-              <a href="#" class="nav-link">Список оборудования</a>
-          </li>
-          <li class="nav-item">
-              <a href="#" class="nav-link">О приложении</a>
-          </li>
-          <li class="nav-item ml-auto">
-              <a href="#" class="nav-link">Вход</a>
-          </li>
-        </ul>
-      </div>
+  <div class="row" v-if="show">
+    <div class="col-12">
+      <ul class="nav">
+        <li class="nav-item">
+            <a href="#" class="nav-link">Главная</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">Список оборудования</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">О приложении</a>
+        </li>
+        <li class="nav-item ml-auto">
+            <a href="#" class="nav-link">Вход</a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>

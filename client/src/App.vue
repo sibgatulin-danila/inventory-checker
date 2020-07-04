@@ -1,16 +1,21 @@
 <template>
-  <Main />
+  <div class="container">
+    <Header />
+    <Equipment />
+  </div>
 </template>
 
 <script>
-import Main from './components/Main';
+import { Equipment } from 'components';
+import { Header } from 'ui';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
 export default {
   name: 'App',
   components: {
-    Main
+    Equipment,
+    Header,
   }
 }
 </script>

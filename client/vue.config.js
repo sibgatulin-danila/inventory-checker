@@ -14,5 +14,7 @@ module.exports = {
             .alias
                 .set('ui', '@/ui')
                 .set('util', '@/util')
+                .set('components', '@/components')
+                .set('models', '@/util/models')
     }
 }
