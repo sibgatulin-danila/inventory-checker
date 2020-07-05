@@ -6,24 +6,22 @@
 
 <script>
 import { Table } from 'ui';
-import { Post } from 'util';
-
+import { Equipment } from 'util';
 
 export default {
     name: 'Equipment',
     components: {
         Table,
     },
-    data: function () {
+    data: function() {
         const headers = ['Название оборудования', 'еще что-то'];
-        return { 
-            rows: [], 
+        return {
+            rows: [],
             headers,
         };
     },
-    created: async function () {
-        const response = await Post.getPosts();
-        this.rows = response.data;
+    created: async function() {
+        this.rows = await Equipment.get();
     },
-}
+};
 </script>

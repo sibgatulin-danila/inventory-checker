@@ -1,17 +1,20 @@
-import {
-    Api,
-} from 'util';
+import { Api } from 'util';
+import { EquipmentModel } from 'models';
 
-export default new class Equipment {
+export default new (class Equipment {
     get = () => {
-        return Api.get('/equipment');
-    }
+        return Api.get('/equipment').then(response => {
+            if (response.statusText === 'OK') {
+                return response.data.map(item => new EquipmentModel(item));
+            }
+        });
+    };
 
-    post = (equipment) => {
+    create = equipment => {
         return Api.post('/equipment', equipment);
-    }
+    };
 
-    delete = (id) => {
-        return Api.post('/equipment/delete', {id});
-    }
-}
+    delete = id => {
+        return Api.post('/equipment/delete', { id });
+    };
+})();

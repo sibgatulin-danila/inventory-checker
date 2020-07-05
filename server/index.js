@@ -10,17 +10,19 @@ server.use(cors());
 const listeningPort = process.env.PORT || 3000;
 
 const posts = require('./routes/api/posts');
+const equipment = require('./routes/api/equipment');
 
 server.use('/api/posts', posts);
+server.use('/api/equipment', equipment);
 
-server.get('/', function (req, res) {
-    res.send('hello from docker');
-});
-
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV == 'production') {
     server.use(express.static(__dirname + '/public/'));
 
     server.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+} else {
+    server.get('/', function (req, res) {
+        res.send('api working');
+    });
 }
 
 server.listen(listeningPort, () => console.log(`Listening port is ${listeningPort}`));

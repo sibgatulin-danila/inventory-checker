@@ -10,11 +10,10 @@ module.exports = {
         }
     },
     chainWebpack: config => {
-        config.resolve
-            .alias
-                .set('ui', '@/ui')
-                .set('util', '@/util')
-                .set('components', '@/components')
-                .set('models', '@/util/models')
+        config.resolve.alias
+            .set('ui', '@/ui')
+            .set('util', '@/util')
+            .set('components', '@/components')
+            .set('models', '@/util/models');
     }
-}
+};
