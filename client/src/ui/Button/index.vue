@@ -11,11 +11,10 @@ export default {
     name: 'Button',
     props: {
         text: String,
-        buttonClass: String,
     },
     data: function () {
         return {
-            classes: cn(this.buttonClass, 'btn'),
+            classes: cn('btn'),
         }
     },
 }

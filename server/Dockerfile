@@ -9,7 +9,7 @@ COPY . ./
 EXPOSE 3000
 
 # for dev
-CMD ["yarn", "start:prod"]
+CMD ["yarn", "start"]
 
 # for prod
-# CMD ["npm", "run", "start"]
+# CMD ["yarn", "start:prod"]

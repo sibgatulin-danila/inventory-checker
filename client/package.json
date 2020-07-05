@@ -11,7 +11,9 @@
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "element-ui": "^2.13.2",
+    "vue": "^2.6.11",
+    "vue2-datepicker": "^3.6.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.10.1",
@@ -22,6 +24,7 @@
     "bootstrap": "^4.5.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "prettier": "^2.0.5",
     "sass": "^1.26.9",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
