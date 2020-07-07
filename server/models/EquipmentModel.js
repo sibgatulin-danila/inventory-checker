@@ -1,19 +1,15 @@
-export default class EquipmentModel {
-    id        = '';
+module.exports = class EquipmentModel {
+    _id       = '';
     name      = '';
     buyDate   = '';
     cost      = '';
     createdAt = '';
 
     constructor(obj) {
-        this.id        = obj._id;
+        this._id       = obj._id;
         this.name      = obj.name;
-        this.createdAt = obj.name;
+        this.buyDate   = obj.buyDate;
+        this.cost      = obj.cost;
+        this.createdAt = new Date();
     }
-
-    HEADERS = [
-        'Название',
-        'Дата покупки',
-        'Стоимость',
-    ]
 }

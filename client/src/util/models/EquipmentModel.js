@@ -1,13 +1,23 @@
 export default class EquipmentModel {
-    id = '';
-    name = '';
-    buyDate = '';
-    cost = "";
+    _id       = '';
+    name      = '';
+    buyDate   = '';
+    cost      = '';
     createdAt = '';
 
-    HEADERS = [
+    static HEADERS = [
         'Название',
-        'Дата покупки',
         'Стоимость',
+        'Дата покупки',
     ]
+
+    formData = () => {
+        return {
+            _id      : this._id,
+            name     : this.name,
+            buyDate  : this.buyDate,
+            cost     : this.cost,
+            createdAt: this.createdAt,
+        }
+    }
 }

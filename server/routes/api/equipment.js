@@ -1,5 +1,6 @@
 const express = require('express');
 const mongodb = require('mongodb');
+const EquipmentModel = require('../../models/EquipmentModel');
 
 const router = express.Router();
 
@@ -10,10 +11,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const equipments = await loadEquipmentCollection();
-    await equipments.insertOne({
-        text: req.body.text,
-        createdAt: new Date(),
-    });
+    await equipments.insertOne(new EquipmentModel(req.body));
     res.status(201).send();
 });
 

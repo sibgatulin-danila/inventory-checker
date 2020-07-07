@@ -4,18 +4,49 @@ import 'vue2-datepicker/index.css';
 
 export default {
     components: { DatePicker },
-    data() {
+    props: {
+        value: {
+            type: String,
+            default: '',
+        },
+        name: {
+            type: String,
+            default: '',
+        },
+        label: {
+            type: String,
+            defalut: '',
+        },
+        placeholder: {
+            type: String,
+            defalut: '',
+        },
+        onChange: {
+            type: Function,
+            default: () => {},
+        },
+    },
+    data: function () {
         return {
-            time1: null,
-            time2: null,
-            time3: null,
+            inputValue: this.value,
         };
+    },
+    watch: {
+        inputValue: function (newVal) {
+            this.onChange({ value: newVal, name: this.name });
+        },
     },
 };
 </script>
 
 <template>
-    <div>
-        <date-picker v-model="time1" valueType="format"></date-picker>
+    <div class="form-group">
+        <label v-if="label">{{ label }}</label>
+        <br />
+        <date-picker
+            v-bind:placeholder="placeholder"
+            v-model="inputValue"
+            valueType="format"
+        ></date-picker>
     </div>
 </template>

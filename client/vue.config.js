@@ -14,6 +14,7 @@ module.exports = {
             .set('ui', '@/ui')
             .set('util', '@/util')
             .set('components', '@/components')
+            .set('services', '@/util/services')
             .set('models', '@/util/models');
     }
 };

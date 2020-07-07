@@ -1,5 +1,6 @@
 export Table from './Table';
 
+export Input from './Input';
 export Button from './Button';
 export Datepicker from './Datepicker';
 
