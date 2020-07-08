@@ -10,21 +10,25 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    
     const equipments = await loadEquipmentCollection();
     await equipments.insertOne(new EquipmentModel(req.body));
     res.status(201).send();
 });
 
-router.post('/delete', async (req, res) => {
+router.delete('/', async (req, res) => {
     const equipments = await loadEquipmentCollection();
-    await equipments.deleteOne({ _id: new mongodb.ObjectID(req.data.id) });
+    await equipments.deleteOne({ _id: new mongodb.ObjectID(req.body.id) });
     res.status(200).send();
 });
 
 async function loadEquipmentCollection() {
     const client = await mongodb.MongoClient.connect(
         'mongodb://mongo',
-        { useNewUrlParser: true }
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }
     )
 
     return client.db('database').collection('equipments');

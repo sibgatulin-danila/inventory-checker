@@ -1,9 +1,9 @@
 export default class EquipmentModel {
-    _id       = '';
-    name      = '';
-    buyDate   = '';
-    cost      = '';
-    createdAt = '';
+    _id       = null;
+    name      = null;
+    buyDate   = null;
+    cost      = null;
+    createdAt = null;
 
     static HEADERS = [
         'Название',

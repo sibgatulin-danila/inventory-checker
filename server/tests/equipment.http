@@ -1,0 +1,26 @@
+
+### get request
+GET http://localhost/api/equipment HTTP/1.1
+
+
+### post request
+POST http://localhost/api/equipment HTTP/1.1
+Content-Type: application/json
+
+{
+    "_id": null,
+    "name": "Жопа",
+    "buyDate": "2020-07-08",
+    "cost": "5000",
+    "createdAt": "2020-07-08T01:04:50.314Z"
+}
+
+### delete request
+POST http://localhost/api/equipment/delete HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "<id here>"
+}
+
+### update request

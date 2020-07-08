@@ -1,15 +1,14 @@
 module.exports = class EquipmentModel {
-    _id       = '';
-    name      = '';
-    buyDate   = '';
-    cost      = '';
-    createdAt = '';
-
-    constructor(obj) {
-        this._id       = obj._id;
-        this.name      = obj.name;
-        this.buyDate   = obj.buyDate;
-        this.cost      = obj.cost;
+    constructor({
+        _id     = null,
+        name    = null,
+        buyDate = null,
+        cost    = 0,
+    }) {
+        this._id       = _id;
+        this.name      = name;
+        this.buyDate   = buyDate;
+        this.cost      = cost;
         this.createdAt = new Date();
     }
 }
