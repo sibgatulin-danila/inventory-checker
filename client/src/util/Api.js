@@ -43,6 +43,25 @@ export default new class Api {
         });
     }
 
+    delete = (endpoint = '/', data = {}) => {
+        return new Promise((resolve, reject) => {
+            try {
+                axios({
+                    method: 'delete', 
+                    url: this.apiPrefix + endpoint, 
+                    data,
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                }).then(response => {
+                    resolve(this._formatResponse(response));
+                })
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
     _formatResponse = (response) => {
         return {
             data: response.data,

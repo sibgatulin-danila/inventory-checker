@@ -15,6 +15,6 @@ export default new (class Equipment {
     };
 
     delete = id => {
-        return Api.post('/equipment/delete', { id });
+        return Api.delete('/equipment', { id });
     };
 })();

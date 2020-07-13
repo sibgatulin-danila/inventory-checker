@@ -1,5 +1,5 @@
 <template>
-    <form v-on:submit="onSubmit">
+    <form v-on:submit="handleSubmit">
         <Input
             label="Название оборудования"
             placeholder="Название"
@@ -38,19 +38,32 @@ export default {
         Datepicker,
         Input,
     },
+    props: {
+        onSubmit: {
+            type: Function,
+            default: () => {},
+        },
+    },
     data: function () {
         return {
             equipment: new EquipmentModel(),
         };
     },
     methods: {
-        onSubmit: function (e) {
+        handleSubmit: function (e) {
             e.preventDefault();
-            Equipment.create(this.equipment.formData());
+            Equipment.create(this.equipment.formData()).then(() => {
+                console.log(this.equipment);
+                this.onSubmit(this.equipment);
+                this.equipment.name = '';
+                this.equipment.buyDate = '';
+                this.equipment.cost = '';
+                // console.log(this.equipment);
+            });
         },
-        onChange: function ({name, value}) {
+        onChange: function ({ name, value }) {
             this.equipment[name] = value;
-        }
+        },
     },
 };
 </script>

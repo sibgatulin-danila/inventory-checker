@@ -1,16 +1,19 @@
 <template>
-    <div class="container">
+<div>
+    <div class="">
         <Table v-bind:rows="rows" v-bind:headers="headers"></Table>
-        <Modal header="Добавление оборудования">
-            <EquipmentFormModal />
-        </Modal>
     </div>
+    <Modal header="Добавление оборудования">
+        <EquipmentFormModal 
+        />
+    </Modal>
+</div>
 </template>
 
 <script>
 import { Table, Modal } from 'ui';
 import { Equipment } from 'util';
-import {EquipmentModel} from 'models';
+import { EquipmentModel } from 'models';
 
 import { EquipmentFormModal } from './components';
 
@@ -28,8 +31,14 @@ export default {
             headers,
         };
     },
-    created: async function () {
-        this.rows = await Equipment.get().map(item => item.formData());
+    created: function () {
+        Equipment.get().then((items) => {
+            this.rows = items.map((item) => ({
+                name: item.name,
+                cost: item.cost,
+                buyDate: item.buyDate,
+            }));
+        });
     },
 };
 </script>

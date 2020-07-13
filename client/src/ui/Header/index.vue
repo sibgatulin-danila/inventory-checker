@@ -1,5 +1,5 @@
 <template>
-  <div class="row" v-if="show">
+  <div class="" v-if="show">
     <div class="col-12">
       <ul class="nav">
         <li class="nav-item">
