@@ -1,1 +1,0 @@
-export Equipment from './Equipment';
