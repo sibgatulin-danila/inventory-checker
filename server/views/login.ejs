@@ -1,0 +1,56 @@
+<%- include('partials/head') %>
+
+<div id="main">
+    <div class="inner">
+
+        <!-- Header -->
+        <%- include('partials/header') %>
+
+        <!-- Forms -->
+        <section class="forms">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-heading">
+                            <h2>Авторизация</h2>
+                        </div>
+                        <form action="<%- routeAuthCheck %>" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input name="username" type="text" class="form-control" placeholder="Ваше имя пользователя..." required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input name="password" type="password" class="form-control" placeholder="Ваш пароль..." required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col">
+                                    <div class="radio-item">
+                                        <input name="rememberme" id="rememberme" type="checkbox" value="1">
+                                        <label for="rememberme">Запомнить меня</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="button">Войти</button>
+                                    <% if (!isAdmin) { %>
+                                        <a href="<%- routeAuthAdminLogin %>" class="pl-auto">Войти как администратор</a>
+                                    <% } else { %>
+                                        <input type="text" hidden name="isAdmin" value="1">
+                                    <% } %>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</div>
+
+
+
+<%- include('partials/footer') %>

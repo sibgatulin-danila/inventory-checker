@@ -1,0 +1,22 @@
+version: "3"
+services:
+  app:
+    container_name: node-app
+    build: .
+    depends_on:
+      - mongo
+    volumes:
+      - ./server:/usr/src/app/server
+    command: npm start
+    restart: always
+    ports:
+      - "80:3000"
+    external_links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - /db:/data/db
