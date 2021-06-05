@@ -7,18 +7,24 @@ module.exports.authCheck = function (req, res, next) {
         return res.redirect('/auth/login');
     }
 
-    let decodedToken = verifyToken(req.cookies.authorization);
+    try {
+        let decodedToken = verifyToken(req.cookies.authorization);
+        let userId = decodedToken.id;
+        if (!userId) {
+            return res.redirect('/auth/login');
+        }
 
-    let userId = decodedToken.id;
-    if (!userId) {
+        User.findOne({_id: userId}, function (err, user) {
+            if (user) {
+                req.user = user
+                next();
+            } else if (err) {
+                return res.redirect('/auth/login');
+            }
+        });
+    } catch (err) {
         return res.redirect('/auth/login');
     }
 
-    User.findOne({_id: userId}, function (err, user) {
-        if (user) {
-            next();
-        } else if (err) {
-            return res.redirect('/auth/login');
-        }
-    });
+
 }
