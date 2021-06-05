@@ -1,73 +1,52 @@
 const bcrypt = require('bcryptjs');
-const passport = require('passport');
-const jsonwebtoken = require('jsonwebtoken');
 
 const User = require('../models/user');
+const {isValidPassword} = require('../passport/is-valid-password');
+const {generateToken} = require('../passport/token-util');
 
-exports.loginGet = function (req, res, next) {
-    res.render('login', {
-        isAdmin: req.query.adminlogin && req.query.adminlogin == '1',
-        routeAuthCheck: '/auth/check',
+exports.loginGet = function (req, res) {
+    res.cookie('authorization', '', {expires: new Date()});
+    return res.render('login', {
+        isAdmin            : req.query.adminlogin && req.query.adminlogin == '1',
+        routeAuthCheck     : '/auth/login',
         routeAuthAdminLogin: '/auth/login?adminlogin=1'
     });
 };
 
-exports.loginPost = function (req, res, next)  {
+exports.loginPost = function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
-
-    const role = req.query.adminlogin && req.query.adminlogin == '1'
+    const role = req.body.isAdmin && req.body.isAdmin == '1'
         ? 'admin'
         : 'user';
 
     User.findOne({username, role}, (err, user) => {
-       if (err) {
-           throw err;
-       }
-       if (!user) {
-           return res.redirect('/auth/login?adminlogin=1&incorrect_credentials=1')
-       }
-       bcrypt.compare(password, user.password, (err, isEqual) => {
-           if (err) {
-               throw err;
-           }
-           if (!isEqual) {
-               return res.redirect('/auth/login?adminlogin=1&incorrect_credentials=1')
-           }
-           const token = jsonwebtoken.sign(user, process.env.SECRET_KEY, {
-               expiresIn: 3600 * 24,
-           });
-
-           res.cookie('token', 'JWT ' + token, {maxAge: 900000, httpOnly: true});
-           next();
-       })
-    });
-    passport.authenticate('local',
-        function (err, user, info) {
-            return err
-                ? next(err)
-                : user
-                    ? req.logIn(user, function (err) {
-                        return err
-                            ? next(err)
-                            : res.redirect('/');
-                    })
-                    : res.redirect('/')
+        if (err) {
+            throw err;
         }
-    )(req, res, next);
-}
 
-exports.registerGet = function (req, res, next) {
+        if (!user) {
+            return res.redirect('/auth/login?incorrect_credentials=1' + (role === 'admin' ? '&adminlogin=1' : ''))
+        }
 
-}
+        if (isValidPassword(user, password)) {
+            let token = generateToken(user);
+            res.cookie('authorization', token, {
+                expires: new Date(Date.now() + ( 3600 * 1000 * 24)),
+                httpOnly: true
+            })
+            return res.redirect('/');
+        }
 
-exports.registerPost = function (req, res, next) {
-
+        return res.json({
+            'code': 400,
+            'message': 'Что-то не так'
+        })
+    });
 }
 
 exports.logoutGet = function (req, res, next) {
-    req.logout();
-    res.redirect('/');
+    res.redirect('/auth/login');
 }
 
 exports.seeds = function (req, res, next) {
@@ -77,13 +56,13 @@ exports.seeds = function (req, res, next) {
         }
         bcrypt.hash(process.env.ADMIN_PASS, 10).then((encryptedPassword) => {
             let newAdmin = new Admin({
-                firstname: 'admin',
-                lastname: 'admin',
+                firstname : 'admin',
+                lastname  : 'admin',
                 middlename: '',
-                username: process.env.ADMIN_NAME,
-                password: encryptedPassword,
-                phone: '70000000000',
-                role: 'admin',
+                username  : process.env.ADMIN_NAME,
+                password  : encryptedPassword,
+                phone     : '70000000000',
+                role      : 'admin',
             });
 
             newAdmin.save(function (err) {

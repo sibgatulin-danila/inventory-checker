@@ -1,6 +1,5 @@
 const express = require('express');
 const router  = express.Router();
-const passport = require('passport');
 const employees = require('../controllers/employees')
 
 router.get('/', function (req, res) {
