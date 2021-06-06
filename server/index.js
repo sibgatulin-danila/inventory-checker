@@ -41,9 +41,28 @@ app.use(cors());
 
 app.use(express.static(path));
 
+app.use(parseBodyRequest);
+
 // Views
-// app.use('/equipments', equipments);
-// app.use('/employees', employees);
+app.use('/equipments', equipments);
+app.use('/employees', employees);
 // app.use('/requests', requests);
 app.use('/auth', auth);
 app.use('/', authCheck, index);
+
+
+function parseBodyRequest (req, res, next) {
+    let data = {};
+    Object.assign(data, req.body);
+    let reqBody = {};
+    Object.keys(data).forEach(key => {
+        if (typeof data[key] === 'string' && !data[key]) {
+            return null
+        }
+        reqBody[key] = data[key];
+    })
+
+    req.body = reqBody;
+
+    return next();
+}

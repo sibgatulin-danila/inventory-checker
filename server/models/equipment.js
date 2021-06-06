@@ -1,11 +1,19 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
-const Auth = new Schema({
-    type : {type: String, required: true},
-    userId: {type: String, required: true},
-    description: {type: String, required: true},
-    equipmentId: {type: ObjectId, required: false}
+const Equipment = new Schema({
+    name : {type: String, required: true},
+    inventoryCode: {type: String, required: true},
+    description: {type: String, required: false},
+    type: {
+        type: Schema.Types.ObjectId,
+        ref: "EquipmentType",
+        required: true,
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    }
 });
 
-module.exports = mongoose.model('Auth', Auth);
+module.exports = mongoose.model('Equipment', Equipment);

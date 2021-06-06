@@ -6,32 +6,44 @@
         <%- include('partials/header') %>
 
         <section class="forms">
-            <h1 class="mb-5">Заполните вашу заявку:</h1>
+            <h1 class="mb-5">Добавление оборудования:</h1>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="contact" action="" method="post">
+                        <form id="contact" action="<%- equipmentsCreateUrl %>" method="post">
                             <div class="row">
-
-                                <div class="col-md-12">
-                                    <select name="equipment" id="equipment">
-                                        <option value="categories" selected>Выберите оборудование</option>
-                                        <option value="Featured">Компьютер 1</option>
-                                        <option value="Newest">Компьютер 2</option>
+                                <div class="col-md-3">
+                                    <select name="type" id="type">
+                                        <% equipmentTypes.forEach(function (type, index) { %>
+                                            <% if (index === 0)  { %>
+                                                    <option value="<%- type._id %>" selected><%- type.name %></option>
+                                            <% } else { %>
+                                                    <option value="<%- type._id %>"><%- type.name %>></option>
+                                            <% } %>
+                                        <% }) %>
                                     </select>
                                 </div>
+                                <div class="col-md-5">
+                                    <fieldset>
+                                        <input name="name" class="form-control" id="name" placeholder="Наименование..." required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset>
+                                        <input name="inventoryCode" class="form-control" id="inventoryCode" placeholder="Инвентарный номер..." required="">
+                                    </fieldset>
+                                </div>
                                 <div class="col-md-12">
-                                    <select name="category" id="category">
-                                        <option value="categories" selected>Выберите тип заявки</option>
-                                        <option value="Featured">Закупить новое</option>
-                                        <option value="Newest">Списать старое</option>
-                                        <option value="Low Price">Передать</option>
-                                        <option value="High Price">Требуется починить</option>
+                                    <select name="user" id="user">
+                                        <option value="" selected>Пользователь не выбран...</option>
+                                        <% users.forEach(function (user) { %>
+                                            <option value="<%- user._id %>"><%- user.username %></option>
+                                        <% }) %>
                                     </select>
                                 </div>
                                 <div class="col-md-12">
                                     <fieldset>
-                                        <textarea name="message" rows="6" class="form-control" id="message" placeholder="Примечание..." required=""></textarea>
+                                        <textarea name="description" rows="6" class="form-control" id="description" placeholder="Примечание..."></textarea>
                                     </fieldset>
                                 </div>
                                 <div class="col-md-12">

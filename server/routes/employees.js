@@ -14,4 +14,8 @@ router.get('/1', function (req, res) {
     employees.employee(req, res);
 });
 
+router.post('/create', function (req, res) {
+    employees.createPost(req, res);
+});
+
 module.exports = router;

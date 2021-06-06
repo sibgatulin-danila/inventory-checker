@@ -1,7 +1,7 @@
-const {requestUrls} = require('../config');
+const {requestsUrls} = require('../config');
 
 exports.home = function (req, res) {
     res.render('requests-create', {
-        requestCreateUrl: requestUrls.requestCreate
+        requestsCreateUrl: requestsUrls.requestsCreate
     });
 };
