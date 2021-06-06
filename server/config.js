@@ -7,10 +7,12 @@ module.exports.employeesUrls = {
 }
 
 module.exports.equipmentsUrls = {
-    equipmentsCreate: '/equipments/create'
+    equipmentsCreate: '/equipments/create',
+    equipmentsUpdate: '/equipments/update'
 }
 
 module.exports.equipmentTypesUrls = {
     equipmentTypesIndex: '/equipments/types/',
     equipmentTypesCreate: '/equipments/types/create',
+    equipmentTypesUpdate: '/equipments/types/update',
 }

@@ -1,11 +1,11 @@
 const Equipment = require('../models/equipment');
 const User = require('../models/user');
 const EquipmentType = require('../models/equipment-type');
+
 const {equipmentsUrls} = require('../config');
 
 exports.index = async function (req, res) {
     const equipments = await Equipment.find({}).populate('type');
-    console.log(equipments);
     res.render('equipments', {
         equipments
     });
@@ -37,8 +37,16 @@ exports.create = function (req, res) {
     })
 };
 
-exports.equipment = function (req, res) {
-    res.render('equipments-equipment');
+exports.equipment = async function (req, res) {
+    let equipment = await Equipment.findOne({_id: req.params.id}).populate('type').populate('user');
+    let users = await User.find({role: 'user'});
+    let equipmentTypes = await EquipmentType.find({});
+    res.render('equipments-equipment', {
+        equipment,
+        users,
+        equipmentTypes,
+        equipmentsUpdateUrl: equipmentsUrls.equipmentsUpdate
+    });
 };
 
 exports.createPost = function (req, res) {
@@ -56,4 +64,22 @@ exports.createPost = function (req, res) {
 
         return res.redirect('/equipments');
     })
+}
+
+exports.updatePost = async function (req, res) {
+    let data = req.body;
+    let equipment = await Equipment.findOne({_id: data._id});
+    Object.keys(data).forEach(key => {
+        equipment[key] = data[key];
+    })
+    equipment.save(function (err) {
+        if (err) {
+            console.log(err);
+            return res.json({
+                code   : 400,
+                message: 'Что-то пошло не так! Невозможно добавить оборудование в коллекцию equipments',
+            })
+        }
+        return res.redirect('/equipments');
+    });
 }

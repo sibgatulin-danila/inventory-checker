@@ -52,14 +52,13 @@ app.use('/', authCheck, index);
 
 
 function parseBodyRequest (req, res, next) {
-    let data = {};
-    Object.assign(data, req.body);
     let reqBody = {};
-    Object.keys(data).forEach(key => {
-        if (typeof data[key] === 'string' && !data[key]) {
-            return null
+    Object.keys(req.body).forEach(key => {
+        if (typeof req.body[key] === 'string' && !req.body[key]) {
+            reqBody[key] = null;
+            return;
         }
-        reqBody[key] = data[key];
+        reqBody[key] = req.body[key];
     })
 
     req.body = reqBody;

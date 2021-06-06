@@ -13,7 +13,15 @@ router.post('/types/create', function (req, res) {
 
 router.get('/types/', function (req, res) {
     equipmentTypes.index(req, res);
-})
+});
+
+router.post('/types/update', function (req, res) {
+    equipmentTypes.updatePost(req, res);
+});
+
+router.get('/types/:id', function (req, res) {
+    equipmentTypes.equipmentType(req, res);
+});
 
 router.get('/', function (req, res) {
     equipments.index(req, res);
@@ -23,12 +31,17 @@ router.get('/create', function (req, res) {
     equipments.create(req, res);
 });
 
-router.get('/1', function (req, res) {
-    equipments.equipment(req, res);
-});
-
 router.post('/create', function (req, res) {
     equipments.createPost(req, res);
 });
+
+router.post('/update', function (req, res) {
+    equipments.updatePost(req, res);
+});
+
+router.get('/:id', function (req, res) {
+    equipments.equipment(req, res);
+});
+
 
 module.exports = router;

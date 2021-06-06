@@ -24,36 +24,18 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>#2005</td>
-                                    <td>Lorem ipsum dolor sit amet</td>
-                                    <td>$19.95</td>
-                                    <td>Опции</td>
-                                </tr>
-                                <tr>
-                                    <td>#2006</td>
-                                    <td>Lorem ipsum dolor sit amet</td>
-                                    <td>$19.95</td>
-                                    <td>Опции</td>
-                                </tr>
-                                <tr>
-                                    <td>#2007</td>
-                                    <td>Lorem ipsum dolor sit amet</td>
-                                    <td>$19.95</td>
-                                    <td>Опции</td>
-                                </tr>
-                                <tr>
-                                    <td>#2008</td>
-                                    <td>Lorem ipsum dolor sit amet</td>
-                                    <td>$19.95</td>
-                                    <td>Опции</td>
-                                </tr>
-                                <tr>
-                                    <td>#2008</td>
-                                    <td>Lorem ipsum dolor sit amet</td>
-                                    <td>$19.95</td>
-                                    <td>Опции</td>
-                                </tr>
+                                <% equipments.forEach(function (equipment) { %>
+                                    <tr>
+                                        <td><%- equipment.inventoryCode %></td>
+                                        <td><%- equipment.name %></td>
+                                        <td><%- equipment.type.name %></td>
+                                        <td>
+                                            <a href="/equipments/<%- equipment._id %>">
+                                                Обновить
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <% }) %>
                                 </tbody>
                             </table>
                             <ul class="table-pagination">
