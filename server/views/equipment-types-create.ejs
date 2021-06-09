@@ -13,6 +13,14 @@
                         <form id="contact" action="<%- equipmentTypesCreateUrl %>" method="post">
                             <div class="row">
                                 <div class="col-md-12">
+                                    <select name="parent" id="parent">
+                                        <option value="" selected>Выберите родительский тип</option>
+                                        <% parentsEquipmentTypes.forEach(function (value) { %>
+                                            <option value="<%- value._id %>"><%- value.name %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
                                     <fieldset>
                                         <input name="name" class="form-control" id="name" placeholder="Название типа..." required="">
                                     </fieldset>

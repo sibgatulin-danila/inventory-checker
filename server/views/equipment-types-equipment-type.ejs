@@ -5,7 +5,6 @@
 
         <%- include('partials/header') %>
 
-        <!-- Tables -->
         <section class="forms">
             <div class="container-fluid">
                 <div class="row">
@@ -27,6 +26,23 @@
                                         >
                                     </fieldset>
                                 </div>
+                                <% if (typeof parentEquipmentTypes != "undefined" && parentEquipmentTypes.length) { %>
+                                    <div class="col-md-12">
+                                        <select name="parent" id="parent">
+                                            <option value="">Не выбран тип оборудования</option>
+                                            <% parentEquipmentTypes.forEach(function (parentEquipmentType) { %>
+                                                <option
+                                                    value="<%- parentEquipmentType._id %>"
+                                                    <%= equipmentType.parent.toString() == parentEquipmentType._id.toString()
+                                                        ? 'selected'
+                                                        : '' %>
+                                                >
+                                                    <%- parentEquipmentType.name %>
+                                                </option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                <% } %>
                                 <div class="col-md-12">
                                     <fieldset>
                                         <input
@@ -51,64 +67,46 @@
         </section>
 
 <!--        &lt;!&ndash; Tables &ndash;&gt;-->
-<!--        <section class="tables">-->
-<!--            <div class="container-fluid">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <div class="section-heading">-->
-<!--                            <h2>История ремонта</h2>-->
-<!--                        </div>-->
-<!--                        <div class="default-table">-->
-<!--                            <table>-->
-<!--                                <thead>-->
-<!--                                <tr>-->
-<!--                                    <th>Product no.</th>-->
-<!--                                    <th>Description</th>-->
-<!--                                    <th>Price</th>-->
-<!--                                </tr>-->
-<!--                                </thead>-->
-<!--                                <tbody>-->
-<!--                                <tr>-->
-<!--                                    <td>#1011</td>-->
-<!--                                    <td>Lorem ipsum dolor sit amet</td>-->
-<!--                                    <td>$20.50</td>-->
-<!--                                </tr>-->
-<!--                                <tr>-->
-<!--                                    <td>#1012</td>-->
-<!--                                    <td>Lorem ipsum dolor sit amet</td>-->
-<!--                                    <td>$20.50</td>-->
-<!--                                </tr>-->
-<!--                                <tr>-->
-<!--                                    <td>#1013</td>-->
-<!--                                    <td>Lorem ipsum dolor sit amet</td>-->
-<!--                                    <td>$20.50</td>-->
-<!--                                </tr>-->
-<!--                                <tr>-->
-<!--                                    <td>#1014</td>-->
-<!--                                    <td>Lorem ipsum dolor sit amet</td>-->
-<!--                                    <td>$20.50</td>-->
-<!--                                </tr>-->
-<!--                                <tr>-->
-<!--                                    <td>#1015</td>-->
-<!--                                    <td>Lorem ipsum dolor sit amet</td>-->
-<!--                                    <td>$20.50</td>-->
-<!--                                </tr>-->
-<!--                                </tbody>-->
-<!--                            </table>-->
-<!--                            <ul class="table-pagination">-->
-<!--                                <li><a href="#">Previous</a></li>-->
-<!--                                <li><a href="#">1</a></li>-->
-<!--                                <li class="active"><a href="#">2</a></li>-->
-<!--                                <li><a href="#">...</a></li>-->
-<!--                                <li><a href="#">8</a></li>-->
-<!--                                <li><a href="#">9</a></li>-->
-<!--                                <li><a href="#">Next</a></li>-->
-<!--                            </ul>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
+        <% if (subEquipmentTypes.length) { %>
+
+            <section class="tables">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="section-heading">
+                                <h2>Подтипы оборудования</h2>
+                            </div>
+                            <div class="default-table">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Название подтипа</th>
+                                        <th>Опции</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% subEquipmentTypes.forEach(function (subEquipmentType, index) { %>
+                                            <tr>
+                                                <td><%- index %></td>
+                                                <td><%- subEquipmentType.name %></td>
+                                                <td>
+                                                    <a href="/equipments/types/<%- subEquipmentType._id %>">
+                                                        Обновить
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+        <% } %>
+        
 <!--        &lt;!&ndash; Tables &ndash;&gt;-->
 <!--        <section class="tables">-->
 <!--            <div class="container-fluid">-->

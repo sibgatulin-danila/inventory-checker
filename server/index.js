@@ -44,9 +44,9 @@ app.use(express.static(path));
 app.use(parseBodyRequest);
 
 // Views
-app.use('/equipments', equipments);
-app.use('/employees', employees);
-// app.use('/requests', requests);
+app.use('/equipments', authCheck, equipments);
+app.use('/employees', authCheck, employees);
+app.use('/requests', authCheck, requests);
 app.use('/auth', auth);
 app.use('/', authCheck, index);
 

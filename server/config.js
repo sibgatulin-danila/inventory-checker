@@ -16,3 +16,9 @@ module.exports.equipmentTypesUrls = {
     equipmentTypesCreate: '/equipments/types/create',
     equipmentTypesUpdate: '/equipments/types/update',
 }
+
+module.exports.requestsTypes = {
+    pending: 'Ожидает обработки',
+    resolve: 'Обработана',
+    reject: 'Отклонена',
+}

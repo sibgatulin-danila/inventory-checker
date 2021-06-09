@@ -2,16 +2,18 @@ const EquipmentType = require('../models/equipment-type');
 const {equipmentTypesUrls} = require('../config');
 
 exports.index = async function (req, res) {
-    let equipmentTypes = await EquipmentType.find({});
+    let equipmentTypes = await EquipmentType.find({parent: undefined});
 
     res.render('equipment-types', {
         equipmentTypes
     });
 };
 
-exports.create = function (req, res) {
+exports.create = async function (req, res) {
+    let parentsTypes = await EquipmentType.find({parent: undefined})
     return res.render('equipment-types-create', {
-        equipmentTypesCreateUrl: equipmentTypesUrls.equipmentTypesCreate
+        equipmentTypesCreateUrl: equipmentTypesUrls.equipmentTypesCreate,
+        parentsEquipmentTypes: parentsTypes,
     });
 };
 
@@ -32,11 +34,22 @@ exports.createPost = function (req, res) {
 }
 
 exports.equipmentType = async function (req, res) {
+    let data = {};
+
+    data.equipmentTypesUpdateUrl = equipmentTypesUrls.equipmentTypesUpdate;
+
     let equipmentType = await EquipmentType.findOne({_id: req.params.id});
-    return res.render('equipment-types-equipment-type', {
-        equipmentType,
-        equipmentTypesUpdateUrl: equipmentTypesUrls.equipmentTypesUpdate
-    });
+    data.equipmentType = equipmentType;
+
+    data.subEquipmentTypes = await EquipmentType.find({parent: req.params.id});
+
+    let isParent = !equipmentType.parent;
+    console.log(isParent)
+    if (!isParent) {
+        data.parentEquipmentTypes = await EquipmentType.find({parent: undefined});
+    }
+
+    return res.render('equipment-types-equipment-type', data);
 }
 
 exports.updatePost = async function (req, res) {

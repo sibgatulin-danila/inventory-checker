@@ -18,42 +18,24 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Наименование</th>
                                     <th>Тип</th>
                                     <th>Опции</th>
+                                    <th>Пользователь</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>#2005</td>
-                                    <td>Lorem ipsum dolor sit amet</td>
-                                    <td>$19.95</td>
-                                    <td>Опции</td>
-                                </tr>
-                                <tr>
-                                    <td>#2006</td>
-                                    <td>Lorem ipsum dolor sit amet</td>
-                                    <td>$19.95</td>
-                                    <td>Опции</td>
-                                </tr>
-                                <tr>
-                                    <td>#2007</td>
-                                    <td>Lorem ipsum dolor sit amet</td>
-                                    <td>$19.95</td>
-                                    <td>Опции</td>
-                                </tr>
-                                <tr>
-                                    <td>#2008</td>
-                                    <td>Lorem ipsum dolor sit amet</td>
-                                    <td>$19.95</td>
-                                    <td>Опции</td>
-                                </tr>
-                                <tr>
-                                    <td>#2008</td>
-                                    <td>Lorem ipsum dolor sit amet</td>
-                                    <td>$19.95</td>
-                                    <td>Опции</td>
-                                </tr>
+                                <% requests.forEach(function (request, index) { %>
+                                    <tr>
+                                        <td><%- index + 1 %></td>
+                                        <td><%- request.type.name %></td>
+                                        <td><%- request.type.name %></td>
+                                        <td>
+                                            <a href="/equipments/<%- request._id %>">
+                                                Обновить
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <% }) %>
                                 </tbody>
                             </table>
                             <ul class="table-pagination">

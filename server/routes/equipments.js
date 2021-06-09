@@ -23,10 +23,6 @@ router.get('/types/:id', function (req, res) {
     equipmentTypes.equipmentType(req, res);
 });
 
-router.get('/', function (req, res) {
-    equipments.index(req, res);
-});
-
 router.get('/create', function (req, res) {
     equipments.create(req, res);
 });
@@ -41,6 +37,10 @@ router.post('/update', function (req, res) {
 
 router.get('/:id', function (req, res) {
     equipments.equipment(req, res);
+});
+
+router.get('/', function (req, res) {
+    equipments.index(req, res);
 });
 
 

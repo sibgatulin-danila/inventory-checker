@@ -3,7 +3,7 @@ const router  = express.Router();
 const index = require('../controllers/index')
 
 router.get('/', function (req, res) {
-    index.home(req, res);
+    res.redirect('/requests/create');
 });
 
 module.exports = router;
