@@ -5,7 +5,21 @@ const EquipmentType = require('../models/equipment-type');
 const {equipmentsUrls} = require('../config');
 
 exports.index = async function (req, res) {
-    const equipments = await Equipment.find({}).populate('type');
+    let equipments = await Equipment.find({})
+        .populate({
+            path: 'type',
+            model: 'EquipmentType',
+            populate: {
+                path: 'parent',
+                model: 'EquipmentType'
+            }
+        })
+        .populate({
+            path: 'subTypes',
+            model: 'EquipmentType'
+        });
+
+    console.log(equipments)
     res.render('equipments', {
         equipments
     });

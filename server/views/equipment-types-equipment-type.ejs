@@ -67,7 +67,7 @@
         </section>
 
 <!--        &lt;!&ndash; Tables &ndash;&gt;-->
-        <% if (subEquipmentTypes.length) { %>
+        <% if (equipmentType.subTypes.length) { %>
 
             <section class="tables">
                 <div class="container-fluid">
@@ -86,7 +86,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <% subEquipmentTypes.forEach(function (subEquipmentType, index) { %>
+                                        <% equipmentType.subTypes.forEach(function (subEquipmentType, index) { %>
                                             <tr>
                                                 <td><%- index %></td>
                                                 <td><%- subEquipmentType.name %></td>

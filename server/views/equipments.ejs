@@ -20,6 +20,7 @@
                                     <th>#</th>
                                     <th>Наименование</th>
                                     <th>Тип</th>
+                                    <th>Подтип</th>
                                     <th>Опции</th>
                                 </tr>
                                 </thead>
@@ -28,7 +29,13 @@
                                     <tr>
                                         <td><%- equipment.inventoryCode %></td>
                                         <td><%- equipment.name %></td>
-                                        <td><%- equipment.type.name %></td>
+                                        <% if (typeof equipment.type.parent == 'undefined') { %>
+                                            <td><%- equipment.type.name %></td>
+                                            <td/>
+                                        <% } else { %>
+                                            <td><%- equipment.type.parent.name %></td>
+                                            <td><%- equipment.type.name %></td>
+                                        <% } %>
                                         <td>
                                             <a href="/equipments/<%- equipment._id %>">
                                                 Обновить

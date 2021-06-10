@@ -21,12 +21,18 @@ exports.createPost = function (req, res) {
     let data = req.body;
     let newEquipmentType = new EquipmentType(data);
 
-    newEquipmentType.save(function (err) {
+    newEquipmentType.save(async function (err) {
         if (err) {
             return res.json({
                 'code': 400,
                 'message': 'Что-то пошло не так!',
             });
+        }
+
+        if (newEquipmentType.parent) {
+            await newEquipmentType.populate('parent').execPopulate()
+            newEquipmentType.parent.subTypes.push(newEquipmentType);
+            newEquipmentType.parent.save();
         }
 
         return res.redirect(equipmentTypesUrls.equipmentTypesIndex);
@@ -38,13 +44,11 @@ exports.equipmentType = async function (req, res) {
 
     data.equipmentTypesUpdateUrl = equipmentTypesUrls.equipmentTypesUpdate;
 
-    let equipmentType = await EquipmentType.findOne({_id: req.params.id});
+    let equipmentType = await EquipmentType.findOne({_id: req.params.id}).populate('subTypes');
     data.equipmentType = equipmentType;
 
-    data.subEquipmentTypes = await EquipmentType.find({parent: req.params.id});
-
     let isParent = !equipmentType.parent;
-    console.log(isParent)
+
     if (!isParent) {
         data.parentEquipmentTypes = await EquipmentType.find({parent: undefined});
     }
@@ -54,12 +58,14 @@ exports.equipmentType = async function (req, res) {
 
 exports.updatePost = async function (req, res) {
     let data = req.body;
-    let equipmentType = await EquipmentType.findOne({_id: data._id});
+    let equipmentType = await EquipmentType.findOne({_id: data._id}).populate('parent');
+
+    let oldParent = equipmentType.parent;
 
     Object.keys(data).forEach(key => {
         equipmentType[key] = data[key];
     })
-    equipmentType.save(function (err) {
+    equipmentType.save(async function (err) {
         if (err) {
             console.log(err);
             return res.json({
@@ -67,6 +73,15 @@ exports.updatePost = async function (req, res) {
                 message: 'Что-то пошло не так! Невозможно добавить оборудование в коллекцию equipments',
             })
         }
+
+        if (equipmentType.parent) {
+            equipmentType.parent.subTypes.push(equipmentType);
+            equipmentType.parent.save();
+        } else {
+            oldParent.subTypes.pull(equipmentType._id);
+            oldParent.save();
+        }
+
         return res.redirect('/equipments/types');
     });
 }

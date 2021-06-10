@@ -58,14 +58,14 @@
                                 </div>
                                 <div class="col-md-6">
                                     <select name="type" id="type">
-                                        <% equipmentTypes.forEach(function (equipmentType) { %>
+                                        <% equipmentTypes.forEach(function (equipmentType, indexParent) { %>
                                             <option
                                                     value="<%- equipmentType._id %>"
                                                     <%= equipment.type._id.toString() == equipmentType._id.toString()
                                                             ? 'selected'
                                                             : '' %>
                                             >
-                                                <%- equipmentType.name %>
+                                                <%- `${indexParent} ${equipmentType.name}` %>
                                             </option>
                                         <% }) %>
                                     </select>
