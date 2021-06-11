@@ -26,14 +26,14 @@
                                         >
                                     </fieldset>
                                 </div>
-                                <% if (typeof parentEquipmentTypes != "undefined" && parentEquipmentTypes.length) { %>
+                                <% if (parentEquipmentTypes && parentEquipmentTypes.length) { %>
                                     <div class="col-md-12">
                                         <select name="parent" id="parent">
                                             <option value="">Не выбран тип оборудования</option>
                                             <% parentEquipmentTypes.forEach(function (parentEquipmentType) { %>
                                                 <option
                                                     value="<%- parentEquipmentType._id %>"
-                                                    <%= equipmentType.parent.toString() == parentEquipmentType._id.toString()
+                                                    <%= equipmentType.parent && equipmentType.parent.toString() == parentEquipmentType._id.toString()
                                                         ? 'selected'
                                                         : '' %>
                                                 >

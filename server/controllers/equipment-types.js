@@ -44,14 +44,9 @@ exports.equipmentType = async function (req, res) {
 
     data.equipmentTypesUpdateUrl = equipmentTypesUrls.equipmentTypesUpdate;
 
-    let equipmentType = await EquipmentType.findOne({_id: req.params.id}).populate('subTypes');
-    data.equipmentType = equipmentType;
+    data.equipmentType = await EquipmentType.findOne({_id: req.params.id}).populate('subTypes');
 
-    let isParent = !equipmentType.parent;
-
-    if (!isParent) {
-        data.parentEquipmentTypes = await EquipmentType.find({parent: undefined});
-    }
+    data.parentEquipmentTypes = await EquipmentType.find({parent: undefined, _id: {$ne: data.equipmentType._id}});
 
     return res.render('equipment-types-equipment-type', data);
 }
@@ -75,6 +70,7 @@ exports.updatePost = async function (req, res) {
         }
 
         if (equipmentType.parent) {
+            await equipmentType.populate('parent', 'subTypes').execPopulate();
             equipmentType.parent.subTypes.push(equipmentType);
             equipmentType.parent.save();
         } else {
