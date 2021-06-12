@@ -13,33 +13,47 @@
                         <form id="contact" action="<%- equipmentsCreateUrl %>" method="post">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <select name="type" id="type">
-                                        <% equipmentTypes.forEach(function (type, index) { %>
-                                            <% if (index === 0)  { %>
-                                                    <option value="<%- type._id %>" selected><%- type.name %></option>
-                                            <% } else { %>
-                                                    <option value="<%- type._id %>"><%- type.name %>></option>
-                                            <% } %>
-                                        <% }) %>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
                                     <fieldset>
-                                        <input name="name" class="form-control" id="name" placeholder="Наименование..." required="">
+                                        <input type="text" name="type" list="types" placeholder="Введите тип оборудования..." required="on" />
+                                        <datalist id="types">
+                                            <% usedEquipmentTypes.forEach(function (usedEquipmentType) { %>
+                                                <option><%- usedEquipmentType %></option>
+                                            <% }) %>
+                                        </datalist>
                                     </fieldset>
                                 </div>
                                 <div class="col-md-6">
+                                    <fieldset>
+                                        <input type="text" name="subtype" list="subtypes" placeholder="Введите подтип оборудования..." />
+                                        <datalist id="subtypes">
+                                            <% usedEquipmentSubtypes.forEach(function (usedEquipmentSubtype) { %>
+                                                <option><%- usedEquipmentSubtype %></option>
+                                            <% }) %>
+                                        </datalist>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input type="text" name="brand" list="brands" placeholder="Введите марку оборудования..." required="on" />
+                                        <datalist id="brands">
+                                            <% usedEquipmentBrands.forEach(function (usedEquipmentBrand) { %>
+                                                <option><%- usedEquipmentBrand %></option>
+                                            <% }) %>
+                                        </datalist>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input type="text" name="name" placeholder="Введите наименование оборудования..."  required="on" autocomplete="off" />
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
                                     <select name="user" id="user">
-                                        <option value="" selected>Пользователь не выбран...</option>
+                                        <option value="" selected>Ответственный пользователь не выбран...</option>
                                         <% users.forEach(function (user) { %>
                                             <option value="<%- user._id %>"><%- user.username %></option>
                                         <% }) %>
                                     </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <input name="inventoryCode" class="form-control" id="inventoryCode" placeholder="Инвентарный номер..." required="">
-                                    </fieldset>
                                 </div>
                                 <div class="col-md-12">
                                     <fieldset>

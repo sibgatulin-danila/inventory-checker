@@ -21,6 +21,7 @@
                                     <th>Наименование</th>
                                     <th>Тип</th>
                                     <th>Подтип</th>
+                                    <th>Марка</th>
                                     <th>Опции</th>
                                 </tr>
                                 </thead>
@@ -29,13 +30,9 @@
                                     <tr>
                                         <td><%- equipment.inventoryCode %></td>
                                         <td><%- equipment.name %></td>
-                                        <% if (typeof equipment.type.parent == 'undefined') { %>
-                                            <td><%- equipment.type.name %></td>
-                                            <td/>
-                                        <% } else { %>
-                                            <td><%- equipment.type.parent.name %></td>
-                                            <td><%- equipment.type.name %></td>
-                                        <% } %>
+                                        <td><%- equipment.type %></td>
+                                        <td><%- equipment.subtype %></td>
+                                        <td><%- equipment.brand %></td>
                                         <td>
                                             <a href="/equipments/<%- equipment._id %>">
                                                 Обновить
@@ -45,15 +42,6 @@
                                 <% }) %>
                                 </tbody>
                             </table>
-                            <ul class="table-pagination">
-                                <li><a href="#">Previous</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">...</a></li>
-                                <li class="active"><a href="#">8</a></li>
-                                <li><a href="#">9</a></li>
-                                <li><a href="#">Next</a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
