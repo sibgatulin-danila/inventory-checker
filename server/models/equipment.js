@@ -24,10 +24,13 @@ const Equipment = new Schema({
     subtype: {
         type: String,
     },
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-    }
 });
+
+Equipment.virtual('user', {
+    ref: 'EquipmentUser',
+    localField: '_id',
+    foreignField: 'equipment',
+    justOne: true,
+})
 
 module.exports = mongoose.model('Equipment', Equipment);

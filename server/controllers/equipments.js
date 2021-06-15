@@ -1,5 +1,6 @@
 const Equipment = require('../models/equipment');
 const User = require('../models/user');
+const EquipmentUser = require('../models/equipment-user');
 
 const {equipmentsUrls} = require('../config');
 
@@ -39,19 +40,19 @@ exports.create = async function (req, res) {
 };
 
 exports.equipment = async function (req, res) {
-    let equipment = await Equipment.findOne({_id: req.params.id}).populate('user');
-    let users = await User.find({role: 'user'});
+    let data = {};
+    data.equipment = await Equipment.findOne({_id: req.params.id});
+    data.equipmentUser = await EquipmentUser.findOne({equipment: data.equipment._id}).sort({$natural: -1});
+    if (data.equipmentUser.user) {
+        data.user = await User.findOne({_id: data.equipmentUser.user});
+    }
 
-    let usedEquipmentTypes = await Equipment.distinct('type');
-    let usedEquipmentSubtypes = await Equipment.distinct('subtype');
-    let usedEquipmentBrands = await Equipment.distinct('brand');
-
+    data.users = await User.find({role: 'user'});
+    data.usedEquipmentTypes = await Equipment.distinct('type');
+    data.usedEquipmentSubtypes = await Equipment.distinct('subtype');
+    data.usedEquipmentBrands = await Equipment.distinct('brand');
     res.render('equipments-equipment', {
-        equipment,
-        users,
-        usedEquipmentTypes,
-        usedEquipmentSubtypes,
-        usedEquipmentBrands,
+       ...data,
         equipmentsUpdateUrl: equipmentsUrls.equipmentsUpdate
     });
 };
@@ -60,6 +61,9 @@ exports.createPost = async function (req, res) {
     let data = req.body;
     let newEquipment = new Equipment(data);
     let lastEquipment = await Equipment.findOne().sort({$natural:-1})
+
+    let user = data.user;
+    delete data.user;
 
     if (!lastEquipment) {
         newEquipment.inventoryCode = prependZeros(1, 8, '');
@@ -76,6 +80,17 @@ exports.createPost = async function (req, res) {
             })
         }
 
+        let newEquipmentUser = new EquipmentUser({user, equipment: newEquipment._id});
+        newEquipmentUser.save(function (err) {
+            if (err) {
+                console.log(err);
+                return res.json({
+                    code: 400,
+                    message: 'Что-то пошло не так! Невозможно добавить маппинг пользователя и оборудования в таблице equipment-user',
+                })
+            }
+        });
+
         return res.redirect('/equipments');
     })
 }
@@ -84,13 +99,16 @@ exports.updatePost = async function (req, res) {
     let data = req.body;
     delete data.inventoryCode;
 
+    let user = data.user;
+    delete data.user;
+
     let equipment = await Equipment.findOne({_id: data._id});
 
     Object.keys(data).forEach(key => {
         equipment[key] = data[key];
     })
 
-    equipment.save(function (err) {
+    equipment.save(async function (err) {
         if (err) {
             console.log(err);
             return res.json({
@@ -98,6 +116,31 @@ exports.updatePost = async function (req, res) {
                 message: 'Что-то пошло не так! Невозможно добавить оборудование в коллекцию equipments',
             })
         }
+
+        let equipmentUser = await EquipmentUser.findOne({equipment: equipment._id}).sort({$natural:-1});
+        let isNewUserExist = !!user;
+        let isEquipmentUserExist = !!equipmentUser.user;
+        if (!equipmentUser
+            || (isNewUserExist && !isEquipmentUserExist)
+            || (!isNewUserExist && isEquipmentUserExist)
+            || (isNewUserExist && isEquipmentUserExist && user !== equipmentUser.user.toString())
+        ) {
+            let newEquipmentUser = new EquipmentUser({equipment: equipment._id, user})
+            newEquipmentUser.save(function (err) {
+                if (err) {
+                    console.log(err);
+                    return res.json({
+                        code   : 400,
+                        message: 'Что-то пошло не так! Невозможно обновить маппинг пользователей и оборудования в коллекции equipment-user',
+                    })
+                }
+            });
+        }
+
         return res.redirect('/equipments');
     });
+}
+
+exports.moves = async function (req, res) {
+    res.render('equipments-moves');
 }

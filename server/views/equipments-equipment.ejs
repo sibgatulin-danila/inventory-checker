@@ -66,14 +66,14 @@
                                 <div class="col-md-6">
                                     <select name="user" id="user">
                                         <option value="">Сотрудник не выбран</option>
-                                        <% users.forEach(function (user) { %>
+                                        <% users.forEach(function (alternativeUser) { %>
                                             <option
-                                                value="<%- user._id %>"
-                                                <%= equipment.user && equipment.user._id.toString() == user._id.toString()
+                                                value="<%- alternativeUser._id %>"
+                                                <%= user && alternativeUser._id.toString() == user._id.toString()
                                                         ? 'selected'
                                                         : '' %>
                                             >
-                                                <%- user.username %>
+                                                <%- alternativeUser.username %>
                                             </option>
                                         <% }) %>
                                     </select>

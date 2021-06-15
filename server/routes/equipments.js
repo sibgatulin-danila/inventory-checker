@@ -14,6 +14,11 @@ router.post('/update', function (req, res) {
     equipments.updatePost(req, res);
 });
 
+router.get('/:id/moves', function (req, res) {
+    equipments.moves(req, res);
+});
+
+
 router.get('/:id', function (req, res) {
     equipments.equipment(req, res);
 });
