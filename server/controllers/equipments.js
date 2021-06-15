@@ -142,5 +142,12 @@ exports.updatePost = async function (req, res) {
 }
 
 exports.moves = async function (req, res) {
-    res.render('equipments-moves');
+    let equipmentId = req.params.id;
+    let equipmentUser = await EquipmentUser.findOne({equipment: equipmentId}).sort({$natural: -1}).populate('user').populate('equipment')
+    let users = await User.find({role: 'user'});
+
+    return res.render('equipments-moves', {
+        equipmentUser,
+        users,
+    });
 }
