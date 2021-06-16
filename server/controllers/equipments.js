@@ -146,8 +146,47 @@ exports.moves = async function (req, res) {
     let equipmentUser = await EquipmentUser.findOne({equipment: equipmentId}).sort({$natural: -1}).populate('user').populate('equipment')
     let users = await User.find({role: 'user'});
 
+    if (!equipmentUser) {
+        equipmentUser = new EquipmentUser({equipment: equipmentId, user: null})
+        equipmentUser.save(function (err) {
+            if (err) {
+                console.log(err);
+                return res.json({
+                    code   : 400,
+                    message: 'Что-то пошло не так! Невозможно обновить маппинг пользователей и оборудования в коллекции equipment-user',
+                })
+            }
+        });
+    }
+
     return res.render('equipments-moves', {
         equipmentUser,
         users,
     });
+}
+
+exports.movesPost = async function (req, res) {
+    let equipmentId = req.params.id;
+    let userId = req.body.user;
+
+    let equipmentUser = await EquipmentUser.findOne({equipment: equipmentId}).sort({$natural:-1});
+    let isNewUserExist = !!userId;
+    let isEquipmentUserExist = !!equipmentUser.user;
+    if (!equipmentUser
+        || (isNewUserExist && !isEquipmentUserExist)
+        || (!isNewUserExist && isEquipmentUserExist)
+        || (isNewUserExist && isEquipmentUserExist && userId !== equipmentUser.user.toString())
+    ) {
+        let newEquipmentUser = new EquipmentUser({equipment: equipmentId, user: userId})
+        newEquipmentUser.save(function (err) {
+            if (err) {
+                return res.json({
+                    code   : 400,
+                    message: 'Что-то пошло не так! Невозможно обновить маппинг пользователей и оборудования в коллекции equipment-user',
+                })
+            }
+        });
+    }
+
+    return res.redirect('/equipments');
 }

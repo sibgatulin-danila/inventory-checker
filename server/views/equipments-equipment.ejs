@@ -69,7 +69,7 @@
                                         <% users.forEach(function (alternativeUser) { %>
                                             <option
                                                 value="<%- alternativeUser._id %>"
-                                                <%= user && alternativeUser._id.toString() == user._id.toString()
+                                                <%= typeof user != 'undefined' && alternativeUser._id.toString() == user._id.toString()
                                                         ? 'selected'
                                                         : '' %>
                                             >

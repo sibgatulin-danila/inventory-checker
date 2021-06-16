@@ -18,6 +18,9 @@ router.get('/:id/moves', function (req, res) {
     equipments.moves(req, res);
 });
 
+router.post('/:id/moves', function (req, res) {
+    equipments.movesPost(req, res);
+});
 
 router.get('/:id', function (req, res) {
     equipments.equipment(req, res);
