@@ -1,0 +1,103 @@
+<%- include('partials/head') %>
+
+<div id="main">
+    <div class="inner">
+
+        <%- include('partials/header') %>
+
+        <section class="forms">
+            <h1 class="mb-5">Починка оборудования <%- `"${equipment.subtype} ${equipment.brand} ${equipment.name}"` %>:</h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="contact" action="" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <textarea
+                                            rows="8"
+                                            name="reason"
+                                            placeholder="Введите описание произошедшей проблемы..."
+                                            required
+                                            autocomplete="off"
+                                        ></textarea>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <textarea
+                                            rows="8"
+                                            name="description"
+                                            placeholder="Введите произведенные действия по починке оборудования..."
+                                            required
+                                            autocomplete="off"
+                                        ></textarea>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <select name="isSuccess">
+                                        <option value="true">Починка успешна</option>
+                                        <option value="false">Починка не принесла результатов</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" class="button">Подтвердить</button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tables -->
+        <section class="container mt-5">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-heading">
+                            <h2>История починок оборудования</h2>
+                        </div>
+                        <% if (equipmentRepairs.length) { %>
+                            <div class="alternate-table">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Дата</th>
+                                        <th>Причина</th>
+                                        <th>Статус</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% equipmentRepairs.forEach(function (equipmentRepair) { %>
+                                        <tr>
+                                            <td><%- equipmentRepair.createdAt %></td>
+                                            <td>
+                                                <a href="<%- `/equipments/${equipmentRepair.equipment}/repairs/${equipmentRepair._id}` %>">
+                                                    <%- equipmentRepair.reason %>
+                                                </a>
+                                            </td>
+                                            <td class="<%= equipmentRepair.isSuccess ? 'badge-success' : 'badge-danger' %>"><%- equipmentRepair.status %></td>
+                                        </tr>
+                                    <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <% } else { %>
+                            <div class="alternate-table">
+                                <h3>История починок оборудования пуста</h3>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<%- include('partials/sidebar') %>
+
+<%- include('partials/footer') %>

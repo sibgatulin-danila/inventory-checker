@@ -1,8 +1,9 @@
 const moment = require('moment');
 
-const Equipment = require('../models/equipment');
 const User = require('../models/user');
+const Equipment = require('../models/equipment');
 const EquipmentUser = require('../models/equipment-user');
+const EquipmentRepair = require('../models/equipment-repair');
 
 const {equipmentsUrls} = require('../config');
 
@@ -185,7 +186,7 @@ exports.moves = async function (req, res) {
         });
     }
 
-    return res.render('equipments-moves', {
+    return res.render('equipments-equipment-moves', {
         equipmentUser,
         equipmentMoves,
         users,
@@ -216,4 +217,54 @@ exports.movesPost = async function (req, res) {
     }
 
     return res.redirect('/equipments');
+}
+
+exports.repairs = async function (req, res) {
+    let equipmentId = req.params.id;
+
+    let equipment = await Equipment.findById(equipmentId);
+    let equipmentRepairs = await EquipmentRepair.find({equipment: equipmentId}).sort({$natural: -1}).lean();
+
+    equipmentRepairs.forEach(el => {
+        el.createdAt = moment(el.createdAt, moment.ISO_8601).format('DD/MM/YYYY HH:mm');
+        el.status = el.isSuccess ? 'Исправлено' : 'Не исправлено';
+    });
+
+    return res.render('equipments-equipment-repairs', {
+        equipment,
+        equipmentRepairs,
+    });
+
+}
+
+exports.repairsPost = async function (req, res) {
+    let equipmentId = req.params.id;
+
+    let data = req.body;
+    data.isSuccess = data.isSuccess === 'true';
+    data.equipment = equipmentId;
+
+    let newEquipmentRepair = new EquipmentRepair(data);
+
+    newEquipmentRepair.save(function (err) {
+        if (err) {
+            console.log(err);
+            return res.json({
+                code: 400,
+                message: 'Что-то пошло не так! Не удалось сохранить данные о починке оборудования в коллекции equipment-repair',
+            });
+        }
+
+        return res.redirect(`/equipments/${equipmentId}/repairs`);
+    })
+}
+
+exports.repair = async function (req, res) {
+    let equipmentRepairId = req.params.repairId;
+
+    let equipmentRepair = await EquipmentRepair.findById(equipmentRepairId).populate('equipment').lean();
+
+    equipmentRepair.createdAt = moment(equipmentRepair.createdAt).format('DD/MM/YYYY HH:mm');
+
+    return res.render('equipments-equipment-repairs-repair', {equipmentRepair});
 }

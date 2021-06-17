@@ -22,6 +22,18 @@ router.post('/:id/moves', function (req, res) {
     equipments.movesPost(req, res);
 });
 
+router.get('/:id/repairs', function (req, res) {
+    equipments.repairs(req, res);
+});
+
+router.post('/:id/repairs', function (req, res) {
+    equipments.repairsPost(req, res);
+});
+
+router.get('/:id/repairs/:repairId', function (req, res) {
+    equipments.repair(req, res);
+});
+
 router.get('/:id', function (req, res) {
     equipments.equipment(req, res);
 });
