@@ -58,6 +58,9 @@
                                         <fieldset>
                                             <input type="text" list="usernames" name="username" placeholder="Пользователь (username)" >
                                             <datalist id="usernames">
+                                                <% usernames.forEach(function (username) { %>
+                                                    <option><%- username %></option>
+                                                <% }) %>
                                             </datalist>
                                         </fieldset>
                                     </div>

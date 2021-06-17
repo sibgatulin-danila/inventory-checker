@@ -26,7 +26,7 @@ const Equipment = new Schema({
     },
 });
 
-Equipment.virtual('user', {
+Equipment.virtual('equipmentUser', {
     ref: 'EquipmentUser',
     localField: '_id',
     foreignField: 'equipment',

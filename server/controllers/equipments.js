@@ -21,19 +21,38 @@ function prependZeros (str, len, seperator) {
 exports.index = async function (req, res) {
     let params = req.query;
 
+    let username = params.username;
+    delete params.username;
+
     let query = {}
 
     Object.keys(params).forEach(key => {
         query[key] = {'$regex': new RegExp(params[key], 'ig')};
     })
 
-    let equipments = await Equipment.find(query);
+    let users = await User.find({role: 'user'}).select('username').lean();
+
+    let equipments = await Equipment.find(query).populate({path: 'equipmentUser', options: {sort: {$natural: -1}}, populate: {path: 'user'}});
+
+    if (username) {
+        equipments = equipments.filter(equipment => {
+            if (!equipment.equipmentUser.user) {
+                return false
+            }
+            return equipment.equipmentUser.user.username.indexOf(username) !== -1;
+        })
+    }
+
+    let usernames = users.map(el => {
+        return el.username;
+    });
 
     let equipmentTypes = await Equipment.distinct('type');
     let equipmentSubtypes = await Equipment.distinct('subtype');
     let equipmentBrands = await Equipment.distinct('brand');
     
     res.render('equipments', {
+        usernames,
         equipments,
         equipmentTypes,
         equipmentSubtypes,
