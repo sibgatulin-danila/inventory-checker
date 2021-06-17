@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 const Equipment = require('../models/equipment');
 const User = require('../models/user');
 const EquipmentUser = require('../models/equipment-user');
@@ -160,10 +162,26 @@ exports.moves = async function (req, res) {
     }
 
     let equipmentUsers = await EquipmentUser.find({equipment: equipmentId}).sort({$natural: -1}).populate('user')
-    console.log(equipmentUsers);
+    equipmentUsers = equipmentUsers.map(el => {
+        el.createdAt = moment(el.createdAt, moment.ISO_8601).format('MM-DD-YYYY');
+        return el;
+    });
+
+    let equipmentMoves = [];
+
+    let toIndex = 0;
+
+    for (let fromIndex = 1; fromIndex < equipmentUsers.length; fromIndex++) {
+        equipmentMoves.push({
+            from: equipmentUsers[fromIndex],
+            to: equipmentUsers[toIndex],
+        })
+        toIndex = fromIndex;
+    }
 
     return res.render('equipments-moves', {
         equipmentUser,
+        equipmentMoves,
         users,
     });
 }

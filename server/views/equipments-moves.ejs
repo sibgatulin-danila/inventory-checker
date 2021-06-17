@@ -45,32 +45,37 @@
         </section>
 
         <!-- Tables -->
-<!--        <section class="container">-->
-<!--            <div class="container-fluid">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <div class="section-heading">-->
-<!--                            <h2>Список оборудования</h2>-->
-<!--                        </div>-->
-<!--                        <div class="alternate-table">-->
-<!--                            <table>-->
-<!--                                <thead>-->
-<!--                                <tr>-->
-<!--                                    <th>#</th>-->
-<!--                                    <th>От кого</th>-->
-<!--                                    <th>К кому</th>-->
-<!--                                </tr>-->
-<!--                                </thead>-->
-<!--                                <tbody>-->
-<!--                                    <tr>-->
-<!--                                    </tr>-->
-<!--                                </tbody>-->
-<!--                            </table>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
+        <section class="container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-heading">
+                            <h2>Список оборудования</h2>
+                        </div>
+                        <div class="alternate-table">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Дата</th>
+                                    <th>От кого</th>
+                                    <th>К кому</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <% equipmentMoves.forEach(function (equipmentMove) { %>
+                                        <tr>
+                                            <td><%- equipmentMove.to.createdAt %></td>
+                                            <td><%= equipmentMove.from.user ? equipmentMove.from.user.username : 'Ответственный отсутствует' %></td>
+                                            <td><%= equipmentMove.to.user ? equipmentMove.to.user.username : 'Ответсвенный снят' %></td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </div>
 </div>
