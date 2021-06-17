@@ -19,10 +19,25 @@ function prependZeros (str, len, seperator) {
 }
 
 exports.index = async function (req, res) {
-    let equipments = await Equipment.find({});
+    let params = req.query;
 
+    let query = {}
+
+    Object.keys(params).forEach(key => {
+        query[key] = {'$regex': new RegExp(params[key], 'ig')};
+    })
+
+    let equipments = await Equipment.find(query);
+
+    let equipmentTypes = await Equipment.distinct('type');
+    let equipmentSubtypes = await Equipment.distinct('subtype');
+    let equipmentBrands = await Equipment.distinct('brand');
+    
     res.render('equipments', {
-        equipments
+        equipments,
+        equipmentTypes,
+        equipmentSubtypes,
+        equipmentBrands,
     });
 };
 
@@ -63,7 +78,6 @@ exports.equipment = async function (req, res) {
 exports.createPost = async function (req, res) {
     let data = req.body;
     let newEquipment = new Equipment(data);
-    let lastEquipment = await Equipment.findOne().sort({$natural:-1})
 
     let user = data.user;
     delete data.user;
@@ -267,4 +281,17 @@ exports.repair = async function (req, res) {
     equipmentRepair.createdAt = moment(equipmentRepair.createdAt).format('DD/MM/YYYY HH:mm');
 
     return res.render('equipments-equipment-repairs-repair', {equipmentRepair});
+}
+
+exports.search = async function (req, res) {
+    let data = req.body;
+    let query = '/equipments?';
+
+    Object.keys(data).forEach(key => {
+        if (data[key]) {
+            query += `${key}=${data[key]}&`;
+        }
+    })
+
+    return res.redirect(query);
 }
