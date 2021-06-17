@@ -159,6 +159,9 @@ exports.moves = async function (req, res) {
         });
     }
 
+    let equipmentUsers = await EquipmentUser.find({equipment: equipmentId}).sort({$natural: -1}).populate('user')
+    console.log(equipmentUsers);
+
     return res.render('equipments-moves', {
         equipmentUser,
         users,

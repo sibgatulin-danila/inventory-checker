@@ -1,0 +1,111 @@
+<%- include('partials/head') %>
+
+<div id="main">
+    <div class="inner">
+
+        <%- include('partials/header') %>
+
+        <section class="forms">
+            <h1 class="mb-5">Информация о сотруднике:</h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="contact" action="" method="post">
+                            <div class="row">
+                                <input
+                                    name="_id"
+                                    class="form-control"
+                                    id="_id"
+                                    placeholder="Введите username сотрудника..."
+                                    required=""
+                                    value="<%- user._id %>"
+                                    hidden
+                                >
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input
+                                            name="username"
+                                            class="form-control"
+                                            id="username"
+                                            placeholder="Введите username сотрудника..."
+                                            required=""
+                                            value="<%- user.username %>"
+                                        >
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input
+                                            name="password"
+                                            class="form-control"
+                                            id="password"
+                                            placeholder="Введите пароль..."
+                                            type="password"
+                                        >
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <input
+                                            name="lastname"
+                                            class="form-control"
+                                            id="lastname"
+                                            placeholder="Введите фамилию..."
+                                            required=""
+                                            value="<%- user.lastname %>"
+                                        >
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <input
+                                            name="firstname"
+                                            class="form-control"
+                                            id="firstname"
+                                            placeholder="Введите имя..."
+                                            required=""
+                                            value="<%- user.firstname %>"
+                                        >
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <input
+                                            name="middlename"
+                                            class="form-control"
+                                            id="middlename"
+                                            placeholder="Введите отчество..."
+                                            required=""
+                                            value="<%- user.middlename %>"
+                                        >
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input
+                                            name="phone"
+                                            class="form-control"
+                                            id="phone"
+                                            placeholder="Введите телефон..."
+                                            required=""
+                                            value="<%- user.phone %>"
+                                        >
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" class="button">Подтвердить</button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<%- include('partials/sidebar') %>
+
+<%- include('partials/footer') %>

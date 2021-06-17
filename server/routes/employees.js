@@ -15,6 +15,10 @@ router.get('/:id', function (req, res) {
     employees.employee(req, res);
 });
 
+router.post('/:id', function (req, res) {
+    employees.updatePost(req, res);
+});
+
 router.get('/', function (req, res) {
     employees.index(req, res);
 });

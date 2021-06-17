@@ -1,0 +1,59 @@
+<%- include('partials/head') %>
+
+<div id="main">
+    <div class="inner">
+
+        <%- include('partials/header') %>
+
+        <!-- Tables -->
+        <section class="container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-heading">
+                            <h2>Список пользователей</h2>
+                        </div>
+                        <div class="alternate-table">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Фамилия</th>
+                                    <th>Имя</th>
+                                    <th>Отчество</th>
+                                    <th>Username</th>
+                                    <th>Телефон</th>
+                                    <th>Опции</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% users.forEach(function (user) { %>
+                                    <tr>
+                                        <td><%- user.lastname %></td>
+                                        <td><%- user.firstname %></td>
+                                        <td><%- user.middlename %></td>
+                                        <td><%- user.username %></td>
+                                        <td><%- user.phone %></td>
+                                        <td class="d-flex">
+                                            <a href="/employees/<%- user._id %>">
+                                                <div data-v-115389dc="" draggable="true" class="app-icon is-m_two_tone is-custom-size" style="width: 30px; height: 30px; fill: rgb(0, 0, 0);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.4,4.4l1.2,1.2L6.2,19H5v-1.2L18.4,4.4 M18.4,2c-0.3,0-0.5,0.1-0.7,0.3L3,17v4h4L21.7,6.3c0.4-0.4,0.4-1,0-1.4l-2.6-2.6 C18.9,2.1,18.7,2,18.4,2L18.4,2z"></path><path d="M15.8 4.3H17.8V9.2H15.8z" transform="rotate(-45.001 16.75 6.75)"></path></svg></div>
+                                            </a>
+<!--                                            <a href="/employees/<%# user._id %>/delete">-->
+<!--                                                <div data-v-115389dc="" draggable="true" class="app-icon is-androidL is-custom-size" style="width: 30px; height: 30px; fill: rgb(0, 0, 0);">&lt;!&ndash;?xml version="1.0"?&ndash;&gt;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">    <path d="M 10 2 L 9 3 L 4 3 L 4 5 L 20 5 L 20 3 L 15 3 L 14 2 L 10 2 z M 5 7 L 5 20 C 5 21.1 5.9 22 7 22 L 17 22 C 18.1 22 19 21.1 19 20 L 19 7 L 5 7 z M 9.4101562 10 L 12 12.589844 L 14.589844 10 L 16 11.410156 L 13.410156 14 L 16 16.589844 L 14.589844 18 L 12 15.410156 L 9.4101562 18 L 8 16.589844 L 10.589844 14 L 8 11.410156 L 9.4101562 10 z"></path></svg></div>-->
+<!--                                            </a>-->
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<%- include('partials/sidebar') %>
+
+<%- include('partials/footer') %>
