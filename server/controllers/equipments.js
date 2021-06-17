@@ -67,12 +67,11 @@ exports.createPost = async function (req, res) {
     let user = data.user;
     delete data.user;
 
-    if (!lastEquipment) {
-        newEquipment.inventoryCode = prependZeros(1, 8, '');
-    } else {
-        let lastEquipment = await Equipment.findOne().sort({$natural:-1})
-        newEquipment.inventoryCode = prependZeros((parseInt(lastEquipment.inventoryCode) + 1.), 8, '');
+    if (!data.inventoryCode) {
+        let equipmentsCount = await Equipment.find().count()
+        newEquipment.inventoryCode = prependZeros(equipmentsCount + 1, 8, '');
     }
+
     newEquipment.save(function (err) {
         if (err) {
             console.log(err);
@@ -99,7 +98,6 @@ exports.createPost = async function (req, res) {
 
 exports.updatePost = async function (req, res) {
     let data = req.body;
-    delete data.inventoryCode;
 
     let user = data.user;
     delete data.user;
@@ -161,10 +159,9 @@ exports.moves = async function (req, res) {
         });
     }
 
-    let equipmentUsers = await EquipmentUser.find({equipment: equipmentId}).sort({$natural: -1}).populate('user')
-    equipmentUsers = equipmentUsers.map(el => {
-        el.createdAt = moment(el.createdAt, moment.ISO_8601).format('MM-DD-YYYY');
-        return el;
+    let equipmentUsers = await EquipmentUser.find({equipment: equipmentId}).sort({$natural: -1}).populate('user').lean()
+    equipmentUsers.forEach((el, index) => {
+        el.createdAt = moment(el.createdAt, moment.ISO_8601).format('DD/MM/YYYY HH:mm');
     });
 
     let equipmentMoves = [];
@@ -177,6 +174,15 @@ exports.moves = async function (req, res) {
             to: equipmentUsers[toIndex],
         })
         toIndex = fromIndex;
+    }
+
+    if (equipmentUsers.length > 0 && equipmentUsers[equipmentUsers.length - 1].user) {
+        equipmentMoves.push({
+            from: {
+                user     : null,
+            },
+            to: equipmentUsers[equipmentUsers.length - 1]
+        });
     }
 
     return res.render('equipments-moves', {

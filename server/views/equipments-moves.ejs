@@ -50,8 +50,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-heading">
-                            <h2>Список оборудования</h2>
+                            <h2>История передачи оборудования</h2>
                         </div>
+                        <% if (equipmentMoves.length) { %>
                         <div class="alternate-table">
                             <table>
                                 <thead>
@@ -72,6 +73,11 @@
                                 </tbody>
                             </table>
                         </div>
+                        <% } else { %>
+                            <div class="alternate-table">
+                                <h3>История передач оборудования пуста</h3>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
             </div>
