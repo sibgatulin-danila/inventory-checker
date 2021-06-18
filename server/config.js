@@ -17,8 +17,27 @@ module.exports.equipmentTypesUrls = {
     equipmentTypesUpdate: '/equipments/types/update',
 }
 
-module.exports.requestsTypes = {
+module.exports.requestsStatuses = {
     pending: 'Ожидает обработки',
     resolve: 'Обработана',
     reject: 'Отклонена',
+}
+
+module.exports.requestsTypes = {
+    buy: {
+        name: 'buy',
+        lang: 'Приобрести',
+    },
+    repair: {
+        name: 'repair',
+        lang: 'Починить',
+    },
+    move: {
+        name: 'move',
+        lang: 'Передать',
+    },
+    remove: {
+        name: 'remove',
+        lang: 'Списать',
+    },
 }

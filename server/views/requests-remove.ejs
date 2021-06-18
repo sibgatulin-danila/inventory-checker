@@ -1,0 +1,50 @@
+<%- include('partials/head') %>
+
+<div id="main">
+    <div class="inner">
+
+        <%- include('partials/header') %>
+
+        <section class="forms">
+            <h1 class="mb-5">Заполните заявку на починку оборудования:</h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="contact" action="" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <select name="equipment" id="equipment">
+                                        <% equipments.forEach(equipment => { %>
+                                            <option value="<%- equipment._id %>"><%- `${equipment.type} ${equipment.subtype} ${equipment.brand} ${equipment.name}` %></option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <textarea
+                                            name="description"
+                                            rows="6"
+                                            class="form-control"
+                                            id="description"
+                                            placeholder="Опишите причину списания оборудования."
+                                            required
+                                        ></textarea>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" class="button">Подтвердить</button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<%- include('partials/sidebar') %>
+
+<%- include('partials/footer') %>

@@ -24,6 +24,9 @@ exports.index = async function (req, res) {
     let username = params.username;
     delete params.username;
 
+    let withoutUser = params.withoutUser;
+    delete params.withoutUser;
+
     let query = {}
 
     Object.keys(params).forEach(key => {
@@ -40,6 +43,10 @@ exports.index = async function (req, res) {
                 return false
             }
             return equipment.equipmentUser.user.username.indexOf(username) !== -1;
+        })
+    } else if (withoutUser) {
+        equipments = equipments.filter(equipment => {
+            return !equipment.equipmentUser.user;
         })
     }
 
