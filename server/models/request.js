@@ -17,6 +17,10 @@ const Request = new Schema({
     userTo: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    createdAt: {
+        type: Date,
+        default: new Date(),
     }
 });
 

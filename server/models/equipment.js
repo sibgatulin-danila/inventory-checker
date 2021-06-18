@@ -24,6 +24,10 @@ const Equipment = new Schema({
     subtype: {
         type: String,
     },
+    deletedAt: {
+        type: Date,
+        default: null,
+    }
 });
 
 Equipment.virtual('equipmentUser', {

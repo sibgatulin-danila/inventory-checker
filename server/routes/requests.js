@@ -42,7 +42,7 @@ router.get('/create', function (req, res) {
     requests.create(req, res);
 });
 
-router.get('/1', function (req, res) {
+router.get('/:id', function (req, res) {
     requests.request(req, res);
 });
 

@@ -11,31 +11,80 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-heading">
-                            <h2>Компьютер 1</h2>
+                            <h2><%- `Тип заявки: ${requestsTypes[request.type].lang}` %></h2>
                         </div>
                         <form id="contact" action="" method="post">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <select name="category" id="category">
-                                        <option value="categories" selected>Сотрудник</option>
-                                        <option value="Featured">Иванов А.А.</option>
-                                        <option value="Newest">Сибгатулин Д.С.</option>
-                                        <option value="Low Price">Technical</option>
-                                        <option value="High Price">Application</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <fieldset>
-                                        <input name="phone" type="text" class="form-control" id="phone" placeholder="Телефон" required="">
+                                        <input
+                                            name="username"
+                                            type="text"
+                                            class="form-control"
+                                            id="username"
+                                            placeholder="username"
+                                            required
+                                            value="<%- request.user.username %>"
+                                            disabled
+                                        >
                                     </fieldset>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-4">
                                     <fieldset>
-                                        <input name="username" type="text" class="form-control" id="phone" placeholder="Username" required="">
+                                        <input
+                                            name="phone"
+                                            type="text"
+                                            class="form-control"
+                                            id="phone"
+                                            placeholder="Телефон"
+                                            required=""
+                                            disabled
+                                            value="<%- request.user.phone %>"
+                                        >
                                     </fieldset>
                                 </div>
+                                <div class="col-md-4">
+                                    <fieldset>
+                                        <input
+                                            name="createdAt"
+                                            type="text"
+                                            class="form-control text-<%- requestsStatuses[request.status].class %>"
+                                            id="createdAt"
+                                            placeholder="Дата создания"
+                                            required=""
+                                            disabled
+                                            value="<%- request.createdAt %>"
+                                        >
+                                    </fieldset>
+                                </div>
+                                <% if (
+                                    request.type === requestsTypes.repair.name
+                                    || request.type === requestsTypes.move.name
+                                    || request.type === requestsTypes.remove.name
+                                ) { %>
+                                    <div class="col-md-12">
+                                        <fieldset>
+                                            <input
+                                                name="equipment"
+                                                type="text"
+                                                class="form-control"
+                                                id="equipment"
+                                                placeholder="Оборудование"
+                                                required=""
+                                                disabled
+                                                value="<%- `${request.equipment.type} ${request.equipment.subtype} ${request.equipment.brand} ${request.equipment.name}` %>"
+                                            >
+                                        </fieldset>
+                                    </div>
+                                <% } %>
                                 <div class="col-12">
-                                    <textarea name="demo-message" id="demo-message" placeholder="Примечания" rows="6"></textarea>
+                                    <textarea
+                                            name="demo-message"
+                                            id="demo-message"
+                                            placeholder="Примечания"
+                                            rows="6"
+                                            disabled
+                                    ><%- request.description %></textarea>
                                 </div>
                                 <div class="col-md-12">
                                     <button type="submit" id="form-submit" class="button">Обновить информацию</button>

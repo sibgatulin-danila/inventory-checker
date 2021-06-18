@@ -38,18 +38,18 @@ module.exports.requestsStatuses = {
 module.exports.requestsTypes = {
     buy: {
         name: 'buy',
-        lang: 'Приобрести',
+        lang: 'Приобретение',
     },
     repair: {
         name: 'repair',
-        lang: 'Починить',
+        lang: 'Ремонт',
     },
     move: {
         name: 'move',
-        lang: 'Передать',
+        lang: 'Передача',
     },
     remove: {
         name: 'remove',
-        lang: 'Списать',
+        lang: 'Списание',
     },
 }

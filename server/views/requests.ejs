@@ -10,6 +10,36 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="section-heading mb-5">
+                            <h3 class="mb-5">Поиск заявок:</h3>
+                            <form action="/requests/search" method="post">
+                                <div class="row forms">
+                                    <div class="col-6">
+                                        <select name="type" id="type">
+                                            <option value="">Выберите тип заявок</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <select name="status" id="status">
+                                            <option value="">Выберите статус заявок</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <fieldset>
+                                            <input type="text" list="usernames" name="username" placeholder="Пользователь (username)" >
+                                            <datalist id="usernames">
+                                                <option></option>
+                                            </datalist>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-12">
+                                        <fieldset>
+                                            <button>Поиск</button>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                         <div class="section-heading">
                             <h2>Список заявок</h2>
                         </div>
@@ -31,8 +61,10 @@
                                         <td><%- request.user.username %></td>
                                         <td><%- request.type %></td>
                                         <td class="badge-<%- request.status.class %>"><%- request.status.name %></td>
-                                        <td>
-
+                                        <td class="d-flex">
+                                            <a href="/requests/<%- request._id %>">
+                                                <div data-v-dedbcfaa="" class="lottie animation"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%; transform: translate3d(0px, 0px, 0px);"><defs><clipPath id="__lottie_element_11"><rect width="24" height="24" x="0" y="0"></rect></clipPath><filter id="__lottie_element_16" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%"><feComponentTransfer in="SourceGraphic"><feFuncA type="table" tableValues="1.0 0.0"></feFuncA></feComponentTransfer></filter><mask id="__lottie_element_12" mask-type="alpha"><g filter="url(#__lottie_element_16)"><rect width="24" height="24" x="0" y="0" fill="#ffffff" opacity="0"></rect><g transform="matrix(0.9999799132347107,-0.00010522989759920165,0.00010522989759920165,0.9999799132347107,-0.0010213851928710938,0.0015039443969726562)" opacity="1" style="display: block;"><g opacity="0" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(0,0,0)" stroke-opacity="1" stroke-width="2" d=" M8,17 C8,17 8.00100040435791,17.00200080871582 8.00100040435791,17.00200080871582"></path></g><g opacity="0" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(0,0,0)" stroke-opacity="1" stroke-width="2" d=" M8,13 C8,13 8.00100040435791,13 8.00100040435791,13"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(0,0,0)" stroke-opacity="1" stroke-width="2" d=" M8,17 C8,17 16,17 16,17"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(0,0,0)" stroke-opacity="1" stroke-width="2" d=" M8,13 C8,13 15.882267951965332,13 15.882267951965332,13"></path></g><g opacity="1" transform="matrix(1,0,0,1,15.75,6.25)"><path fill="rgb(0,0,0)" fill-opacity="1" d=" M2.7500038146972656,2.748704433441162 C2.7500038146972656,2.748704433441162 -2.7486066818237305,2.7486066818237305 -2.7486066818237305,2.7486066818237305 C-2.7486066818237305,2.7486066818237305 -2.748704433441162,-2.7500038146972656 -2.748704433441162,-2.7500038146972656 C-2.748704433441162,-2.7500038146972656 0.0006992389680817723,-0.0006992389680817723 0.0006992389680817723,-0.0006992389680817723 C0.0006992389680817723,-0.0006992389680817723 2.7500038146972656,2.748704433441162 2.7500038146972656,2.748704433441162z"></path></g></g></g></mask></defs><g clip-path="url(#__lottie_element_11)"><g mask="url(#__lottie_element_12)" style="display: block;"><g transform="matrix(0.9999799132347107,-0.00010522989759920165,0.00010522989759920165,0.9999799132347107,-0.0010213851928710938,0.0015039443969726562)" opacity="1"><g opacity="1" transform="matrix(1,0,0,1,12,12)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(0,0,0)" stroke-opacity="1" stroke-width="2" d=" M7,8 C7,8.550999641418457 6.551000118255615,9 6,9 C6,9 -6,9 -6,9 C-6.551000118255615,9 -7,8.550999641418457 -7,8 C-7,8 -7,-8 -7,-8 C-7,-8.550999641418457 -6.551000118255615,-9 -6,-9 C-6,-9 1.5871158838272095,-9 1.5871158838272095,-9 C1.5872573852539062,-9 7,-3.5872535705566406 7,-3.58711576461792 C7,-3.58711576461792 7,8 7,8z"></path><path fill="rgb(0,0,0)" fill-opacity="1" d=" M7,8 C7,8.550999641418457 6.551000118255615,9 6,9 C6,9 -6,9 -6,9 C-6.551000118255615,9 -7,8.550999641418457 -7,8 C-7,8 -7,-8 -7,-8 C-7,-8.550999641418457 -6.551000118255615,-9 -6,-9 C-6,-9 1.5871158838272095,-9 1.5871158838272095,-9 C1.5872573852539062,-9 7,-3.5872535705566406 7,-3.58711576461792 C7,-3.58711576461792 7,8 7,8z"></path></g></g></g></g></svg></div>
+                                            </a>
                                         </td>
                                     </tr>
                                 <% }) %>

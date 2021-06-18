@@ -27,11 +27,20 @@ exports.index = async function (req, res) {
     let withoutUser = params.withoutUser;
     delete params.withoutUser;
 
+    let isDeleted = params.isDeleted;
+    delete params.isDeleted;
+
     let query = {}
 
     Object.keys(params).forEach(key => {
         query[key] = {'$regex': new RegExp(params[key], 'ig')};
     })
+
+    if (isDeleted) {
+        query.deletedAt = { $ne: null };
+    } else {
+        query.deletedAt = null;
+    }
 
     let users = await User.find({role: 'user'}).select('username').lean();
 

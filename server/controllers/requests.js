@@ -1,3 +1,5 @@
+const moment = require('moment')
+
 const Request = require('../models/request');
 const Equipment = require('../models/equipment');
 const User = require('../models/user');
@@ -152,6 +154,20 @@ exports.create = async function (req, res) {
     });
 }
 
-exports.request = function (req, res) {
-    res.render('requests-request');
+exports.request = async function (req, res) {
+    let requestId = req.params.id;
+
+    let request = await Request
+        .findById(requestId)
+        .populate('user', 'username phone')
+        .populate('equipment', 'type subtype brand name')
+        .lean();
+
+    request.createdAt = moment(request.createdAt, moment.ISO_8601).format('DD/MM/YYYY HH:mm')
+
+    res.render('requests-request', {
+        request,
+        requestsStatuses,
+        requestsTypes,
+    });
 }
