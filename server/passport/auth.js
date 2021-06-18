@@ -17,6 +17,7 @@ module.exports.authCheck = function (req, res, next) {
         User.findOne({_id: userId}, function (err, user) {
             if (user) {
                 req.user = user
+                res.locals.rootUser = user;
                 next();
             } else if (err) {
                 return res.redirect('/auth/login');

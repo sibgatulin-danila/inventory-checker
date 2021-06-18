@@ -106,9 +106,11 @@
                                         <label for="isDeleted">Списать оборудование</label>
                                     </div>
                                 </div>
+                                <% if (rootUser && rootUser.role === 'admin') { %>
                                 <div class="col-md-12">
                                     <button type="submit" id="form-submit" class="button">Обновить информацию</button>
                                 </div>
+                                <% } %>
                             </div>
                         </form>
                     </div>

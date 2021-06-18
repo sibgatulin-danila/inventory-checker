@@ -13,15 +13,17 @@
         <!-- Menu -->
         <nav id="menu">
             <ul>
-                <li>
-                    <span class="opener">Добавить заявку</span>
-                    <ul>
-                        <li><a href="/requests/buy">Приобретение</a></li>
-                        <li><a href="/requests/repair">Починка</a></li>
-                        <li><a href="/requests/move">Передача</a></li>
-                        <li><a href="/requests/remove">Списание</a></li>
-                    </ul>
-                </li>
+                <% if (rootUser && rootUser.role !== 'admin') { %>
+                    <li>
+                        <span class="opener">Добавить заявку</span>
+                        <ul>
+                            <li><a href="/requests/buy">Приобретение</a></li>
+                            <li><a href="/requests/repair">Починка</a></li>
+                            <li><a href="/requests/move">Передача</a></li>
+                            <li><a href="/requests/remove">Списание</a></li>
+                        </ul>
+                    </li>
+                <% } %>
                 <li>
                     <a href="/requests">Список заявок</a>
                 </li>
@@ -29,9 +31,12 @@
                     <span class="opener">Оборудование</span>
                     <ul>
                         <li><a href="/equipments">Список оборудования</a></li>
-                        <li><a href="/equipments/create">Добавить оборудование</a></li>
+                        <% if (rootUser && rootUser.role === 'admin') { %>
+                            <li><a href="/equipments/create">Добавить оборудование</a></li>
+                        <% } %>
                     </ul>
                 </li>
+                <% if (rootUser && rootUser.role === 'admin') { %>
                 <li>
                     <span class="opener">Сотрудники</span>
                     <ul>
@@ -39,6 +44,7 @@
                         <li><a href="/employees/create">Добавить</a></li>
                     </ul>
                 </li>
+                <% } %>
             </ul>
         </nav>
 
