@@ -18,9 +18,21 @@ module.exports.equipmentTypesUrls = {
 }
 
 module.exports.requestsStatuses = {
-    pending: 'Ожидает обработки',
-    resolve: 'Обработана',
-    reject: 'Отклонена',
+    pending: {
+        name: 'pending',
+        lang: 'В обработке',
+        class: 'warning'
+    },
+    resolve: {
+        name: 'resolve',
+        lang: 'Принята',
+        class: 'success'
+    },
+    reject: {
+        name: 'reject',
+        lang: 'Отклонена',
+        class: 'danger'
+    },
 }
 
 module.exports.requestsTypes = {

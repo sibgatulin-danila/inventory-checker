@@ -5,10 +5,18 @@ const User = require('../models/user');
 const {requestsUrls, requestsStatuses, requestsTypes} = require('../config');
 
 exports.index = async function (req, res) {
-    let conditions = {};
-    let requests = await Request.find(conditions);
+    let requests = await Request.find({}).populate('user', 'username').lean();
+
+    requests.forEach(request => {
+        request.type = requestsTypes[request.type].lang;
+        request.status = {
+            name: requestsStatuses[request.status].lang,
+            class: requestsStatuses[request.status].class,
+        };
+    });
+
     return res.render('requests', {
-        requests
+        requests,
     });
 }
 

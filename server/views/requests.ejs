@@ -11,42 +11,33 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-heading">
-                            <h2>Tables</h2>
+                            <h2>Список заявок</h2>
                         </div>
                         <div class="alternate-table">
                             <table>
                                 <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Тип</th>
-                                    <th>Опции</th>
-                                    <th>Пользователь</th>
-                                </tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Пользователь</th>
+                                        <th>Тип</th>
+                                        <th>Статус</th>
+                                        <th>Опции</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                 <% requests.forEach(function (request, index) { %>
                                     <tr>
                                         <td><%- index + 1 %></td>
-                                        <td><%- request.type.name %></td>
-                                        <td><%- request.type.name %></td>
+                                        <td><%- request.user.username %></td>
+                                        <td><%- request.type %></td>
+                                        <td class="badge-<%- request.status.class %>"><%- request.status.name %></td>
                                         <td>
-                                            <a href="/equipments/<%- request._id %>">
-                                                Обновить
-                                            </a>
+
                                         </td>
                                     </tr>
                                 <% }) %>
                                 </tbody>
                             </table>
-                            <ul class="table-pagination">
-                                <li><a href="#">Previous</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">...</a></li>
-                                <li class="active"><a href="#">8</a></li>
-                                <li><a href="#">9</a></li>
-                                <li><a href="#">Next</a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
