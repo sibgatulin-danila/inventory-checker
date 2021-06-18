@@ -152,6 +152,15 @@ exports.updatePost = async function (req, res) {
     let user = data.user;
     delete data.user;
 
+    let isDeleted = data.isDeleted;
+    delete data.isDeleted;
+
+    if (isDeleted) {
+        data.deletedAt = new Date();
+    } else {
+        data.deletedAt = null;
+    }
+
     let equipment = await Equipment.findOne({_id: data._id});
 
     Object.keys(data).forEach(key => {

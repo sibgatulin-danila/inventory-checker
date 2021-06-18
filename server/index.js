@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-const {authCheck} = require('./passport/auth');
+const {authCheck, isAdmin, isUser} = require('./passport/auth');
 
 const app = express();
 require('dotenv').config();
@@ -44,8 +44,8 @@ app.use(express.static(path));
 app.use(parseBodyRequest);
 
 // Views
-app.use('/equipments', authCheck, equipments);
-app.use('/employees', authCheck, employees);
+app.use('/equipments', [authCheck], equipments);
+app.use('/employees', [authCheck, isAdmin], employees);
 app.use('/requests', authCheck, requests);
 app.use('/auth', auth);
 app.use('/', authCheck, index);

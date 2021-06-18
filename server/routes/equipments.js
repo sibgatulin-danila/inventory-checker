@@ -2,15 +2,17 @@ const express = require('express');
 const router  = express.Router();
 const equipments = require('../controllers/equipments')
 
-router.get('/create', function (req, res) {
+const {isAdmin} = require('../passport/auth');
+
+router.get('/create', isAdmin, function (req, res) {
     equipments.create(req, res);
 });
 
-router.post('/create', function (req, res) {
+router.post('/create', isAdmin, function (req, res) {
     equipments.createPost(req, res);
 });
 
-router.post('/update', function (req, res) {
+router.post('/update', isAdmin, function (req, res) {
     equipments.updatePost(req, res);
 });
 
@@ -18,23 +20,23 @@ router.post('/search', function (req, res) {
     equipments.search(req, res);
 });
 
-router.get('/:id/moves', function (req, res) {
+router.get('/:id/moves', isAdmin, function (req, res) {
     equipments.moves(req, res);
 });
 
-router.post('/:id/moves', function (req, res) {
+router.post('/:id/moves', isAdmin, function (req, res) {
     equipments.movesPost(req, res);
 });
 
-router.get('/:id/repairs', function (req, res) {
+router.get('/:id/repairs', isAdmin, function (req, res) {
     equipments.repairs(req, res);
 });
 
-router.post('/:id/repairs', function (req, res) {
+router.post('/:id/repairs', isAdmin, function (req, res) {
     equipments.repairsPost(req, res);
 });
 
-router.get('/:id/repairs/:repairId', function (req, res) {
+router.get('/:id/repairs/:repairId', isAdmin, function (req, res) {
     equipments.repair(req, res);
 });
 

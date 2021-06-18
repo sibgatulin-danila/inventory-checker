@@ -25,6 +25,28 @@ module.exports.authCheck = function (req, res, next) {
     } catch (err) {
         return res.redirect('/auth/login');
     }
+}
 
+module.exports.isAdmin = function (req, res, next) {
+    if (!req.user) {
+        return res.redirect('/auth/login');
+    }
 
+    if (req.user.role === 'admin') {
+        next();
+    } else {
+        return res.redirect('/requests');
+    }
+}
+
+module.exports.isUser = function (req, res, next) {
+    if (!req.user) {
+        return res.redirect('/auth/login');
+    }
+
+    if (req.user.role === 'user') {
+        next();
+    } else {
+        return res.redirect('/requests');
+    }
 }
