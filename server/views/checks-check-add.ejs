@@ -1,0 +1,42 @@
+<%- include('partials/head') %>
+
+<div id="main">
+    <div class="inner">
+
+        <%- include('partials/header') %>
+
+        <section class="forms">
+            <h1 class="mb-5">Добавить инвентарный номер оборудования:</h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="contact" action="" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <input name="inventoryCode" list="inventoryCodes" class="form-control" id="inventoryCode" placeholder="Инвентарный номер" required autocomplete="off">
+                                        <datalist id="inventoryCodes">
+                                            <% inventoryCodes.forEach(function (inventoryCode) { %>
+                                                <option><%- inventoryCode %></option>
+                                            <% }) %>
+                                        </datalist>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" class="button">Подтвердить</button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<%- include('partials/sidebar') %>
+
+<%- include('partials/footer') %>

@@ -16,6 +16,8 @@ const index = require('./routes/index');
 const equipments = require('./routes/equipments');
 const employees = require('./routes/employees');
 const requests = require('./routes/requests');
+const checks = require('./routes/checks');
+
 // Specify location of views
 app.set("views", "./server/views");
 // Connect to MongoDB
@@ -47,6 +49,7 @@ app.use(parseBodyRequest);
 app.use('/equipments', [authCheck], equipments);
 app.use('/employees', [authCheck, isAdmin], employees);
 app.use('/requests', authCheck, requests);
+app.use('/checks', [authCheck, isAdmin], checks);
 app.use('/auth', auth);
 app.use('/', authCheck, index);
 

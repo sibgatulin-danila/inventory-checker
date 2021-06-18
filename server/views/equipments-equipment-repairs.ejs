@@ -6,7 +6,7 @@
         <%- include('partials/header') %>
 
         <section class="forms">
-            <h1 class="mb-5">Починка оборудования <%- `"${equipment.subtype} ${equipment.brand} ${equipment.name}"` %>:</h1>
+            <h1 class="mb-5">Ремонт оборудования <%- `"${equipment.subtype} ${equipment.brand} ${equipment.name}"` %>:</h1>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
@@ -28,7 +28,7 @@
                                         <textarea
                                             rows="8"
                                             name="description"
-                                            placeholder="Введите произведенные действия по починке оборудования..."
+                                            placeholder="Введите произведенные действия по ремонту оборудования..."
                                             required
                                             autocomplete="off"
                                         ></textarea>
@@ -36,8 +36,8 @@
                                 </div>
                                 <div class="col-md-12">
                                     <select name="isSuccess">
-                                        <option value="true">Починка успешна</option>
-                                        <option value="false">Починка не принесла результатов</option>
+                                        <option value="true">Ремонт успешен</option>
+                                        <option value="false">Ремонт не принес результатов</option>
                                     </select>
                                 </div>
                                 <div class="col-md-12">
@@ -58,7 +58,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-heading">
-                            <h2>История починок оборудования</h2>
+                            <h2>История ремонта оборудования</h2>
                         </div>
                         <% if (equipmentRepairs.length) { %>
                             <div class="alternate-table">
@@ -87,7 +87,7 @@
                             </div>
                         <% } else { %>
                             <div class="alternate-table">
-                                <h3>История починок оборудования пуста</h3>
+                                <h3>История ремонта оборудования пуста</h3>
                             </div>
                         <% } %>
                     </div>

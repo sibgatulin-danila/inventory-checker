@@ -45,6 +45,9 @@
                     </ul>
                 </li>
                 <% } %>
+                <% if (rootUser && rootUser.role === 'admin') { %>
+                <li><a href="/checks">Инвентаризация</a></li>
+                <% } %>
             </ul>
         </nav>
 

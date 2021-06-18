@@ -21,7 +21,7 @@
                                     </div>
                                     <div class="col-3">
                                         <fieldset>
-                                            <input type="text" list="types" name="type" placeholder="Тип" >
+                                            <input type="text" list="types" name="type" placeholder="Тип" autocomplete="off">
                                             <datalist id="types">
                                                 <% equipmentTypes.forEach(function (type) { %>
                                                     <option><%- type %></option>
@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="col-3">
                                         <fieldset>
-                                            <input type="text" list="subtypes" name="subtype" placeholder="Подтип" >
+                                            <input type="text" list="subtypes" name="subtype" placeholder="Подтип" autocomplete="off">
                                             <datalist id="subtypes">
                                                 <% equipmentSubtypes.forEach(function (subtype) { %>
                                                     <option><%- subtype %></option>
@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="col-3">
                                         <fieldset>
-                                            <input type="text" list="brands" name="brand" placeholder="Марка" >
+                                            <input type="text" list="brands" name="brand" placeholder="Марка" autocomplete="off">
                                             <datalist id="brands">
                                                 <% equipmentBrands.forEach(function (brand) { %>
                                                     <option><%- brand %></option>
@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="col-6">
                                         <fieldset>
-                                            <input type="text" list="usernames" name="username" placeholder="Пользователь (username)" >
+                                            <input type="text" list="usernames" name="username" placeholder="Пользователь (username)" autocomplete="off">
                                             <datalist id="usernames">
                                                 <% usernames.forEach(function (username) { %>
                                                     <option><%- username %></option>

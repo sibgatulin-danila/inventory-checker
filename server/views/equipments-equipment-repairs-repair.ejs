@@ -6,7 +6,7 @@
         <%- include('partials/header') %>
 
         <section class="forms">
-            <h1 class="mb-5">Починка оборудования <%- `"${equipmentRepair.equipment.subtype} ${equipmentRepair.equipment.brand} ${equipmentRepair.equipment.name}"` %>:</h1>
+            <h1 class="mb-5">Ремонт оборудования <%- `"${equipmentRepair.equipment.subtype} ${equipmentRepair.equipment.brand} ${equipmentRepair.equipment.name}"` %>:</h1>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
@@ -28,7 +28,7 @@
                                     <textarea
                                         rows="8"
                                         name="description"
-                                        placeholder="Введите произведенные действия по починке оборудования..."
+                                        placeholder="Введите произведенные действия по ремонту оборудования..."
                                         required
                                         disabled
                                         autocomplete="off"
@@ -41,7 +41,7 @@
                                         class="<%= equipmentRepair.isSuccess ? 'text-success' : 'text-danger' %>"
                                         name="craetedAt"
                                         disabled
-                                        placeholder="Введите произведенные действия по починке оборудования..."
+                                        placeholder="Введите произведенные действия по ремонту оборудования..."
                                         value="<%- equipmentRepair.createdAt %>"
                                         autocomplete="off"
                                     />
@@ -53,7 +53,7 @@
                                         class="<%= equipmentRepair.isSuccess ? 'text-success' : 'text-danger' %>"
                                         name="isSuccess"
                                         disabled
-                                        placeholder="Введите произведенные действия по починке оборудования..."
+                                        placeholder="Введите произведенные действия по ремонту оборудования..."
                                         value="<%= equipmentRepair.isSuccess ? 'Исправлено' : 'Не исправлено' %>"
                                         autocomplete="off"
                                     />

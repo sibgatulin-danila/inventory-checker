@@ -1,0 +1,47 @@
+<%- include('partials/head') %>
+
+<div id="main">
+    <div class="inner">
+
+        <%- include('partials/header') %>
+
+        <!-- Tables -->
+        <section class="container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-heading">
+                            <h3>Инвентаризация от <%- check.createdAt %></h3>
+                            <h2 class="mt-5">Учтеное оборудование</h2>
+                        </div>
+                        <div class="alternate-table">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Название оборудования</th>
+                                    <th>Опции</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% equipmentsCheck.forEach(function (equipmentCheck) { %>
+                                    <tr>
+                                        <td><%- equipmentCheck.equipment.inventoryCode %></td>
+                                        <td><%- `${equipmentCheck.equipment.type} ${equipmentCheck.equipment.subtype} ${equipmentCheck.equipment.brand} ${equipmentCheck.equipment.name}` %></td>
+                                        <td></td>
+                                    </tr>
+                                <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<%- include('partials/sidebar') %>
+
+<%- include('partials/footer') %>
