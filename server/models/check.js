@@ -9,6 +9,10 @@ const Check = new Schema({
     equipmentsCount: {
         type: Number,
         default: 0,
+    },
+    equipments: {
+        type: Array,
+        default: []
     }
 });
 

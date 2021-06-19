@@ -8,6 +8,12 @@ const Equipment = new Schema({
     },
     inventoryCode: {
         type: String,
+        unique: true,
+        required: true
+    },
+    serialNumber: {
+        type: String,
+        unique: true,
         required: true
     },
     brand: {

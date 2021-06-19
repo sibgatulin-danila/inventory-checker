@@ -12,7 +12,18 @@
                     <div class="col-md-12">
                         <div class="section-heading">
                             <h3>Инвентаризация от <%- check.createdAt %></h3>
-                            <h2 class="mt-5">Учтеное оборудование</h2>
+                            <div class="row mt-5 d-flex">
+                                <div class="col-6">
+                                    <h2>Учтеное оборудование</h2>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <div>
+                                        <a href="">
+                                            <button>Экспорт</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="alternate-table">
                             <table>
@@ -20,7 +31,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Название оборудования</th>
-                                    <th>Опции</th>
+<!--                                    <th>Опции</th>-->
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -28,7 +39,49 @@
                                     <tr>
                                         <td><%- equipmentCheck.equipment.inventoryCode %></td>
                                         <td><%- `${equipmentCheck.equipment.type} ${equipmentCheck.equipment.subtype} ${equipmentCheck.equipment.brand} ${equipmentCheck.equipment.name}` %></td>
-                                        <td></td>
+<!--                                        <td></td>-->
+                                    </tr>
+                                <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tables -->
+        <section class="container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-heading mt-5">
+                            <div class="row mt-5 d-flex">
+                                <div class="col-6">
+                                    <h2>Недостающее оборудование</h2>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <div>
+                                        <a href="">
+                                            <button>Экспорт</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alternate-table">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Название оборудования</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% notCheckedEquipments.forEach(function (notCheckedEquipment) { %>
+                                    <tr>
+                                        <td><%- notCheckedEquipment.inventoryCode %></td>
+                                        <td><%- `${notCheckedEquipment.type} ${notCheckedEquipment.subtype} ${notCheckedEquipment.brand} ${notCheckedEquipment.name}` %></td>
                                     </tr>
                                 <% }) %>
                                 </tbody>

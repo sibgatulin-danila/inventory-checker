@@ -40,6 +40,10 @@ router.post('/remove', isUser, function (req, res) {
     requests.removePost(req, res);
 });
 
+router.post('/search', function (req, res) {
+    requests.search(req, res);
+});
+
 router.get('/:id', function (req, res) {
     requests.request(req, res);
 });

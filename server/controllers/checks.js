@@ -31,21 +31,35 @@ exports.index = async function (req, res) {
 exports.check = async function (req, res) {
     let checkId = req.params.id;
     let check = await Check.findById(checkId).lean();
+
     check.createdAt = moment(check.createdAt).format('DD/MM/YYYY HH:mm');
     let equipmentsCheck = await EquipmentCheck
         .find({check: checkId})
         .populate('equipment', 'type subtype brand name inventoryCode');
 
+    let checkedEquipmentIds = equipmentsCheck.map(checkedEquipment => {
+        return checkedEquipment.equipment._id.toString();
+    });
+
+    let notCheckedEquipmentIds = check.equipments.filter(equipment => {
+        return !checkedEquipmentIds.includes(equipment.toString());
+    })
+
+    let notCheckedEquipments = await Equipment.find({_id: {$in: notCheckedEquipmentIds}}).select('type subtype brand name inventoryCode');
+
     return res.render('checks-check', {
         check,
         equipmentsCheck,
+        notCheckedEquipments,
     })
 }
 
 exports.create = async function (req, res) {
+    let equipmentIds = await Equipment.find({deletedAt: null}).distinct('_id');
     let data = {
         createdAt: new Date(),
-        equipmentsCount: await Equipment.find({deletedAt: null}).count(),
+        equipmentsCount: equipmentIds.length,
+        equipments: equipmentIds
     }
 
     let newCheck = new Check(data);

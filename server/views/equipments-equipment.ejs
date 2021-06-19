@@ -63,7 +63,7 @@
                                         <input type="text" name="name" placeholder="Введите наименование оборудования..." value="<%- equipment.name %>" />
                                     </fieldset>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <select name="user" id="user">
                                         <option value="">Сотрудник не выбран</option>
                                         <% users.forEach(function (alternativeUser) { %>
@@ -88,6 +88,19 @@
                                             placeholder="Инвентарный номер"
                                             required=""
                                             value="<%- equipment.inventoryCode %>"
+                                        >
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input
+                                            name="serialNumber"
+                                            type="text"
+                                            class="form-control"
+                                            id="serialNumber"
+                                            placeholder="Серийный номер"
+                                            required=""
+                                            value="<%- equipment.serialNumber %>"
                                         >
                                     </fieldset>
                                 </div>

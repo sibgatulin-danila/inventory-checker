@@ -17,18 +17,26 @@
                                     <div class="col-6">
                                         <select name="type" id="type">
                                             <option value="">Выберите тип заявок</option>
+                                            <% requestsTypes.forEach (function(requestType) { %>
+                                                <option value="<%- requestType.name %>"><%- requestType.lang %></option>
+                                            <% }) %>
                                         </select>
                                     </div>
                                     <div class="col-6">
                                         <select name="status" id="status">
                                             <option value="">Выберите статус заявок</option>
+                                            <% requestsStatuses.forEach (function(requestStatus) { %>
+                                                <option value="<%- requestStatus.name %>"><%- requestStatus.lang %></option>
+                                            <% }) %>
                                         </select>
                                     </div>
                                     <div class="col-12">
                                         <fieldset>
-                                            <input type="text" list="usernames" name="username" placeholder="Пользователь (username)" >
+                                            <input type="text" list="usernames" name="username" placeholder="Пользователь (username)" autocomplete="off" >
                                             <datalist id="usernames">
-                                                <option></option>
+                                                <% usernames.forEach(function (username) { %>
+                                                    <option><%- username %></option>
+                                                <% }) %>
                                             </datalist>
                                         </fieldset>
                                     </div>

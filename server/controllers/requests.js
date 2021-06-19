@@ -7,7 +7,18 @@ const User = require('../models/user');
 const {requestsUrls, requestsStatuses, requestsTypes} = require('../config');
 
 exports.index = async function (req, res) {
-    let requests = await Request.find({}).populate('user', 'username').lean();
+    let query = req.query;
+
+    let username = query.username;
+    delete query.username;
+
+    let requests = await Request.find(query).populate('user', 'username').lean();
+
+    if (username) {
+        requests = requests.filter(request => {
+            return request.user.username.indexOf(username) !== -1;
+        })
+    }
 
     requests.forEach(request => {
         request.type = requestsTypes[request.type].lang;
@@ -17,8 +28,13 @@ exports.index = async function (req, res) {
         };
     });
 
+    let usernames = await User.find({role: 'user'}).distinct('username')
+
     return res.render('requests', {
         requests,
+        requestsTypes: (Object.values(requestsTypes)),
+        requestsStatuses: Object.values(requestsStatuses),
+        usernames,
     });
 }
 
@@ -170,4 +186,17 @@ exports.request = async function (req, res) {
         requestsStatuses,
         requestsTypes,
     });
+}
+
+exports.search = function (req, res) {
+    let data = req.body;
+    let query = '/requests?';
+
+    Object.keys(data).forEach(key => {
+        if (data[key]) {
+            query += `${key}=${data[key]}&`;
+        }
+    })
+
+    return res.redirect(query);
 }
