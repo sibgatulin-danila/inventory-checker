@@ -50,12 +50,12 @@ exports.logoutGet = function (req, res, next) {
 }
 
 exports.seeds = function (req, res, next) {
-    User.find({username: process.env.ADMIN_NAME, role: 'amin'}, function (err, docs) {
+    User.find({username: process.env.ADMIN_NAME, role: 'admin'}, function (err, docs) {
         if (err) {
             throw err;
         }
         bcrypt.hash(process.env.ADMIN_PASS, 10).then((encryptedPassword) => {
-            let newAdmin = new Admin({
+            let newAdmin = new User({
                 firstname : 'admin',
                 lastname  : 'admin',
                 middlename: '',
@@ -69,10 +69,10 @@ exports.seeds = function (req, res, next) {
                 if (err) {
                     console.log(err);
                     if (err.code === 11000) {
-                        res.render('seeds');
+                        return res.render('seeds');
                     }
                 }
-                res.render('seeds');
+                return res.render('seeds');
             })
         });
     });

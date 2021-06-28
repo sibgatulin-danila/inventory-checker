@@ -12,7 +12,7 @@ exports.index = async function (req, res) {
     let username = query.username;
     delete query.username;
 
-    let requests = await Request.find(query).populate('user', 'username').lean();
+    let requests = await Request.find(query).sort({$natural: -1}).populate('user', 'username').lean();
 
     if (username) {
         requests = requests.filter(request => {

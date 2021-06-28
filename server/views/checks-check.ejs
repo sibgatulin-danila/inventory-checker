@@ -14,11 +14,11 @@
                             <h3>Инвентаризация от <%- check.createdAt %></h3>
                             <div class="row mt-5 d-flex">
                                 <div class="col-6">
-                                    <h2>Учтеное оборудование</h2>
+                                    <h2>Учтенное оборудование</h2>
                                 </div>
                                 <div class="col-6 text-right">
                                     <div>
-                                        <a href="">
+                                        <a href="/checks/<%- check._id %>/report/checked" target="_blank">
                                             <button>Экспорт</button>
                                         </a>
                                     </div>
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="col-6 text-right">
                                     <div>
-                                        <a href="">
+                                        <a href="/checks/<%- check._id %>/report/not-checked" target="_blank">
                                             <button>Экспорт</button>
                                         </a>
                                     </div>

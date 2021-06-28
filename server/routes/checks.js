@@ -27,4 +27,12 @@ router.post('/:id/add', function (req, res, next) {
     checks.addPost(req, res);
 });
 
+router.get('/:id/report/checked', function (req, res) {
+    checks.reportChecked(req, res);
+});
+
+router.get('/:id/report/not-checked', function (req, res) {
+    checks.reportNotChecked(req, res);
+});
+
 module.exports = router;

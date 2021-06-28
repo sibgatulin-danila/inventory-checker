@@ -1,4 +1,5 @@
 const moment = require('moment');
+const { parse, Parser } = require('json2csv');
 
 const Equipment = require('../models/equipment');
 const Check = require('../models/check');
@@ -116,4 +117,52 @@ exports.addPost = async function (req, res) {
 
         return res.redirect(`/checks/${checkId}/add`)
     });
+}
+
+exports.reportChecked = async function (req, res) {
+    let checkId = req.params.id;
+    let checkedEquipments = await EquipmentCheck
+        .find({check: checkId})
+        .populate('equipment', 'type subtype brand name inventoryCode serialNumber').lean();
+
+    checkedEquipments = checkedEquipments.map(checkedEquipment => ({
+        'Наименование оборудования': `${checkedEquipment.equipment.type} ${checkedEquipment.equipment.subtype} ${checkedEquipment.equipment.brand} ${checkedEquipment.equipment.name}`,
+        'Инвентарный номер': checkedEquipment.equipment.inventoryCode,
+        'Серийный номер': checkedEquipment.equipment.serialNumber,
+        'Учтено': 'Да',
+    }))
+
+    let data = parse(checkedEquipments);
+    res.attachment('filemane.csv');
+    res.status(200).send(data);
+}
+
+exports.reportNotChecked = async function (req, res) {
+    let checkId = req.params.id;
+    let check = await Check.findById(checkId)
+
+    let equipmentsCheck = await EquipmentCheck
+        .find({check: checkId})
+        .populate('equipment', '_id');
+
+    let checkedEquipmentIds = equipmentsCheck.map(checkedEquipment => {
+        return checkedEquipment.equipment._id.toString();
+    });
+
+    let notCheckedEquipmentIds = check.equipments.filter(equipment => {
+        return !checkedEquipmentIds.includes(equipment.toString());
+    })
+
+    let notCheckedEquipments = await Equipment.find({_id: {$in: notCheckedEquipmentIds}}).select('type subtype brand name inventoryCode serialNumber');
+
+    notCheckedEquipments = notCheckedEquipments.map(notCheckedEquipment => ({
+        'Наименование оборудования': `${notCheckedEquipment.type} ${notCheckedEquipment.subtype} ${notCheckedEquipment.brand} ${notCheckedEquipment.name}`,
+        'Инвентарный номер': notCheckedEquipment.inventoryCode,
+        'Серийный номер': notCheckedEquipment.serialNumber,
+        'Учтено': 'Нет',
+    }));
+
+    let data = parse(notCheckedEquipments);
+    res.attachment('filemane.csv');
+    res.status(200).send(data);
 }

@@ -11,4 +11,8 @@ router.post('/login', function (req, res, next) {
     auth.loginPost(req, res, next);
 });
 
+router.get('/seeds', function (req, res) {
+    auth.seeds(req, res);
+});
+
 module.exports = router;
