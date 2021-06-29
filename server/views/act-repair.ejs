@@ -1,0 +1,54 @@
+<html>
+<head><meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+    <style type="text/css">
+        <!--
+        span.cls_002{font-family:Times,serif;font-size:11.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+        div.cls_002{font-family:Times,serif;font-size:11.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+        span.cls_003{font-family:Times,serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+        div.cls_003{font-family:Times,serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+        span.cls_004{font-family:Times,serif;font-size:6.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+        div.cls_004{font-family:Times,serif;font-size:6.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+        span.cls_005{font-family:Times,serif;font-size:10.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+        div.cls_005{font-family:Times,serif;font-size:10.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+        -->
+    </style>
+</head>
+<body>
+<div style="position:absolute;left:50%;margin-left:-298px;top:0px;width:596px;height:842px;border-style:outset;overflow:hidden" id="print">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="/assets/images/background2.jpg" width=596 height=842></div>
+    <div style="position:absolute;left:157.08px;top:80.57px" class="cls_002"><span class="cls_002">Акт технической экспертизы № _______ от <%- `"${equipmentRepair.createdAtDay}" ${equipmentRepair.createdAtMonth} ${equipmentRepair.createdAtYear}` %></span></div>
+    <div style="position:absolute;left:20.15px;top:116.28px" class="cls_003"><span class="cls_003">в лице инженера _____________________________________________________________________________________</span></div>
+    <div style="position:absolute;left:236.15px;top:131.78px" class="cls_004"><span class="cls_004">(ФИО сервисного инженера ПОЛНОМОЧНОГО ПРЕДСТАВИТЕЛЯ)</span></div>
+    <div style="position:absolute;left:20.15px;top:139.28px" class="cls_003"><span class="cls_003">произведен технический осмотр  <%- `${equipmentRepair.equipment.type} ${equipmentRepair.equipment.subtype} ${equipmentRepair.equipment.brand} ${equipmentRepair.equipment.name}` %>,</span></div>
+    <div style="position:absolute;left:20.15px;top:162.28px" class="cls_003"><span class="cls_003">который принадлежит Предприятию __________________________________________________________________________</span></div>
+    <div style="position:absolute;left:308.15px;top:173.78px" class="cls_004"><span class="cls_004">(Наименование</span><span class="cls_003"> Предприятию</span><span class="cls_004">)</span></div>
+    <div style="position:absolute;left:20.15px;top:196.77px" class="cls_005"><span class="cls_005">Технический осмотр показал, что ОБОРУДОВАНИЕ имеет следующие неисправности:</span></div>
+    <div style="position:absolute;left:20.15px;top:208.27px" class="cls_003"><span class="cls_003"><%- equipmentRepair.reason %></span></div>
+    <div style="position:absolute;left:20.15px;top:231.27px" class="cls_005"><span class="cls_005">Список действий по ремонту:</span></div>
+    <div style="position:absolute;left:20.15px;top:242.77px" class="cls_003"><span class="cls_003"><%- equipmentRepair.description %></span></div>
+    <div style="position:absolute;left:20.15px;top:323.26px" class="cls_005"><span class="cls_005">Заключение:</span></div>
+    <div style="position:absolute;left:20.15px;top:334.76px" class="cls_003"><span class="cls_003"><%= equipmentRepair.isSuccess ? 'После ремонта оборудование пригодно для эксплуатации' : 'Оборудование не удалось отремонтировать' %></span></div>
+    <div style="position:absolute;left:20.15px;top:392.26px" class="cls_003"><span class="cls_003">Системный администратор: _________________(____________________________)</span></div>
+    <div style="position:absolute;left:170.09px;top:407.76px" class="cls_004"><span class="cls_004">(Подпись)</span></div>
+    <div style="position:absolute;left:288.65px;top:407.76px" class="cls_004"><span class="cls_004">(ФИО)</span></div>
+</div>
+
+
+
+<script>
+    var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+    mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+    mywindow.document.write('</head><body >');
+    mywindow.document.write(document.getElementById('print').innerHTML);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10*/
+
+    mywindow.print();
+</script>
+
+</body>
+</html>

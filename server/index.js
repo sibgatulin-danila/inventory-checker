@@ -17,6 +17,7 @@ const equipments = require('./routes/equipments');
 const employees = require('./routes/employees');
 const requests = require('./routes/requests');
 const checks = require('./routes/checks');
+const act = require('./routes/act');
 
 // Specify location of views
 app.set("views", "./server/views");
@@ -51,6 +52,7 @@ app.use('/employees', [authCheck, isAdmin], employees);
 app.use('/requests', authCheck, requests);
 app.use('/checks', [authCheck, isAdmin], checks);
 app.use('/auth', auth);
+app.use('/act', [authCheck, isAdmin], act);
 app.use('/', authCheck, index);
 
 

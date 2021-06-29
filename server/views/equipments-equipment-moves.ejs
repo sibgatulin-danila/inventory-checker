@@ -60,6 +60,7 @@
                                     <th>Дата</th>
                                     <th>От кого</th>
                                     <th>К кому</th>
+                                    <th>Опции</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -68,6 +69,11 @@
                                             <td><%- equipmentMove.to.createdAt %></td>
                                             <td><%= equipmentMove.from.user ? equipmentMove.from.user.username : 'Ответственный отсутствует' %></td>
                                             <td><%= equipmentMove.to.user ? equipmentMove.to.user.username : 'Ответсвенный снят' %></td>
+                                            <td>
+                                                <a href="/act/move/<%- equipmentUser.equipment._id %>">
+                                                    <div data-v-115389dc="" draggable="true" class="app-icon is-androidL is-custom-size" style="width: 30px; height: 30px; fill: rgb(0, 0, 0);"><!--?xml version="1.0"?--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">    <path d="M 6 3 L 6 6 L 18 6 L 18 3 L 6 3 z M 5 8 C 3.35 8 2 9.35 2 11 L 2 17 L 6 17 L 6 21 L 18 21 L 18 17 L 22 17 L 22 11 C 22 9.35 20.65 8 19 8 L 5 8 z M 19 10 C 19.6 10 20 10.4 20 11 C 20 11.6 19.6 12 19 12 C 18.4 12 18 11.6 18 11 C 18 10.4 18.4 10 19 10 z M 8 14 L 16 14 L 16 19 L 8 19 L 8 14 z"></path></svg></div>
+                                                </a>
+                                            </td>
                                         </tr>
                                     <% }) %>
                                 </tbody>
